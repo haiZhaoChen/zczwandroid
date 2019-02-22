@@ -507,6 +507,22 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
             case android.R.id.home:
                 if (answers.size()>0){
 
+                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(ExamInfoPageActivity.this);
+                    builder.setMessage("返回将退出考试，成绩以目前得分为准");
+                    builder.setTitle("提示：");
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.create().show();
 
 
 
