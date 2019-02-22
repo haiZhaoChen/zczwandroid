@@ -102,11 +102,11 @@
 
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/edit_frame"
+                    android:background="@drawable/exam_frame_go"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:paddingTop="2dp"
