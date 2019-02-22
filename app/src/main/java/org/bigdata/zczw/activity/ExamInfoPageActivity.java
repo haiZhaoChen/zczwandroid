@@ -91,6 +91,8 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
     private ArrayList<Boolean> resultList;
     //存储答案
     private ArrayList<ArrayList<Integer>> resultABCList;
+    //进入测试接口
+    private Boolean isTestExam=false;
 
 
 
@@ -121,7 +123,14 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
         submitState = 1;
         //获取考试试题列表
         examPreModel = (ExamPreModel) getIntent().getSerializableExtra("exam");
-        ServerUtils.getExamPageQues(examPreModel.getId()+"",callback);
+        if (examPreModel.getExamType()==1000){
+            isTestExam = true;
+            ServerUtils.getTestExamPageQues(testCallback);
+
+        }else {
+            ServerUtils.getExamPageQues(examPreModel.getId()+"",callback);
+        }
+
 
         leftToRightBarAni.setDuration(examPreModel.getCostLimit()*1000);
 
@@ -237,7 +246,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                 }
                 ServerUtils.submitAnswer(examPreModel.getId()+"",ques.getId()+"",stringBuffer.toString(),answerBack);
                 //修改按钮状态
-                if (indexQues<examPreModel.getQuestionCount()-1){
+                if (indexQues < examPreModel.getQuestionCount()-1){
                     submitState=2;
                     submitBtn.setText("进入下一题");
                 }else {
@@ -380,6 +389,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                     bundle.putSerializable("resultABC",(Serializable)resultABCList);
                     intent.putExtras(bundle);
                     intent.putExtra("exam",examPreModel);
+                    intent.putExtra("isTestExam",isTestExam);
                     intent.putExtra("answers",(Serializable) dataSource);
                     startActivity(intent);
                     //关闭本页面
@@ -507,24 +517,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
             case android.R.id.home:
                 if (answers.size()>0){
 
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(ExamInfoPageActivity.this);
-                    builder.setMessage("返回将退出考试，成绩以目前得分为准");
-                    builder.setTitle("提示：");
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.create().show();
-
-
+                    showReturnNoticeDialog();
 
                 }else {
                     finish();
@@ -536,6 +529,28 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    //测试请求返回
+    private RequestCallBack<String> testCallback = new RequestCallBack<String>() {
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            String jsonStr = responseInfo.result;
+            ExamQuesModelBean modelBean = JsonUtils.jsonToPojo(jsonStr,ExamQuesModelBean.class);
+
+            if (modelBean != null){
+                if (modelBean.getStatus() == 200){
+                    dataSource = (ArrayList<ExamQuesModel>)modelBean.getData();
+                    //设置题目
+                    setQuestionIndex(indexQues);
+
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+
+        }
+    };
 
     private RequestCallBack<String> callback = new RequestCallBack<String>() {
         @Override

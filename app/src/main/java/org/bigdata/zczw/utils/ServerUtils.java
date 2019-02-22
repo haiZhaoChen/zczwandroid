@@ -1248,6 +1248,21 @@ public class ServerUtils {
     }
 
     /**
+     * 参加测试
+     *
+     */
+    public static void getTestExamPageQues(RequestCallBack<String> requestCallBack){
+
+        String url = DemoApi.HOST + DemoApi.EXAM_TONGJI;
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.configCurrentHttpCacheExpiry(0); // 设置缓存0秒,0秒内直接返回上次成功请求的结果。
+        RequestParams params = new RequestParams();
+        params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
+        httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
+    }
+
+
+    /**
      * 提交考试答案
      *
      */

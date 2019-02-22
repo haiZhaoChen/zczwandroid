@@ -2,6 +2,8 @@ package org.bigdata.zczw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import org.bigdata.zczw.entity.ExamPreModel;
 import org.bigdata.zczw.entity.ExamPreModelBean;
 import org.bigdata.zczw.utils.AppManager;
 import org.bigdata.zczw.utils.JsonUtils;
+import org.bigdata.zczw.utils.SPUtil;
 import org.bigdata.zczw.utils.ServerUtils;
 import org.handmark.pulltorefresh.library.PullToRefreshBase;
 import org.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -31,6 +34,19 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
     private PullToRefreshListView listView;
     private ArrayList<ExamPreModel> dataSource;
     private ExamPreAdapter adapter;
+
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 11){
+
+            }else if (msg.what == 101) {
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +80,7 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
                                                 Intent intent = new Intent(ExamListPageActivity.this,ExamInfoPageActivity.class);
                                                 ExamPreModel exam = dataSource.get(position-1);
                                                 intent.putExtra("exam",exam);
-                                                startActivity(intent);
+                                                startActivityForResult(intent,10001);
                                             }
                                         }
 
@@ -76,6 +92,21 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
 
         ServerUtils.getExamPageList(callback);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        getIntent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if (data == null) {
+            return;
+        }
+        if (resultCode == 10001){
+            ServerUtils.getExamPageList(callback);
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

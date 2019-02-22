@@ -61,13 +61,14 @@
                             android:layout_marginTop="3dp"
                             />
                         <TextView
+                            android:id="@+id/score_int_num"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="8dp"
                             android:layout_centerVertical="true"
                             android:textSize="16sp"
                             android:textAlignment="center"
-                            android:text="得分"
+                            android:text="获得得分"
                             android:textColor="@color/whitesmoke"
                             />
 

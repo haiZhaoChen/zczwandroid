@@ -29,7 +29,7 @@ import java.util.List;
 public class ExamAnsweredActivity extends AppCompatActivity implements View.OnClickListener{
 
     private DateScrollGridView gridView;
-    private TextView examScore,totalNum,rightNum;
+    private TextView examScore,totalNum,rightNum,scoreText;
     private Button submitBtn;
     //上一个页面传入的数据
     //答案列表
@@ -40,6 +40,8 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
     private ArrayList<ExamQuesModel> examQuesList;
     //score_img_bg_animation
     private RelativeLayout viewBg;
+    //测试
+    private Boolean isTestExam;
 
 
 
@@ -64,7 +66,7 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
         examScore = (TextView)findViewById(R.id.exam_score_text);
         totalNum = (TextView)findViewById(R.id.ques_total_num);
         rightNum = (TextView)findViewById(R.id.answer_total_num);
-
+        scoreText = (TextView)findViewById(R.id.score_int_num);
         viewBg = (RelativeLayout) findViewById(R.id.score_img_bg_animation);
 
         submitBtn.setOnClickListener(this);
@@ -73,6 +75,7 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
 
         resultList = (ArrayList<Boolean>) getIntent().getSerializableExtra("result");
         examPreModel = (ExamPreModel) getIntent().getSerializableExtra("exam");
+        isTestExam = (Boolean)getIntent().getSerializableExtra("isTestExam");
         examQuesList = (ArrayList<ExamQuesModel>) getIntent().getSerializableExtra("answers");
         resultABCList = (ArrayList<ArrayList<Integer>>)getIntent().getSerializableExtra("resultABC") ;
 
@@ -88,10 +91,17 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
         }
         rightNum.setText(i+"");
 
+
         if (i*1.0/resultList.size()>= 0.6){
             examScore.setText("5");
         }else {
             examScore.setText("2");
+        }
+
+        if (isTestExam){
+            scoreText.setText("模拟得分");
+        }else {
+            scoreText.setText("获得积分");
         }
 
         //开始动画
@@ -135,6 +145,7 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
                 intent.putExtra("exam",examPreModel);
                 intent.putExtra("answers",(Serializable) examQuesList);
                 startActivity(intent);
+                viewBg.clearAnimation();
                 finish();
                 break;
         }
@@ -145,6 +156,7 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                viewBg.clearAnimation();
                 finish();
                 break;
         }
