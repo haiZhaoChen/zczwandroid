@@ -1,5 +1,10 @@
 package org.bigdata.zczw.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.bigdata.zczw.R;
@@ -18,6 +24,7 @@ import org.bigdata.zczw.utils.AppManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExamAnsweredActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -31,6 +38,8 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
     //考试类和考试下的试题列表
     private ExamPreModel examPreModel;
     private ArrayList<ExamQuesModel> examQuesList;
+    //score_img_bg_animation
+    private RelativeLayout viewBg;
 
 
 
@@ -56,6 +65,8 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
         totalNum = (TextView)findViewById(R.id.ques_total_num);
         rightNum = (TextView)findViewById(R.id.answer_total_num);
 
+        viewBg = (RelativeLayout) findViewById(R.id.score_img_bg_animation);
+
         submitBtn.setOnClickListener(this);
     }
     private void initData(){
@@ -78,11 +89,36 @@ public class ExamAnsweredActivity extends AppCompatActivity implements View.OnCl
         rightNum.setText(i+"");
 
         if (i*1.0/resultList.size()>= 0.6){
-            examScore.setText("+5");
+            examScore.setText("5");
         }else {
-            examScore.setText("+2");
+            examScore.setText("2");
         }
 
+        //开始动画
+        floatAnim(viewBg,20);
+
+
+    }
+
+    private void floatAnim(View view, int delay){
+        List<Animator> animators = new ArrayList<>();
+        ObjectAnimator translationXAnim = ObjectAnimator.ofFloat(view, "translationX", -6.0f,6.0f,-6.0f);
+        translationXAnim.setDuration(2000);
+        translationXAnim.setRepeatCount(ValueAnimator.INFINITE);//无限循环
+        translationXAnim.setRepeatMode(ValueAnimator.RESTART);//
+        translationXAnim.start();
+        animators.add(translationXAnim);
+        ObjectAnimator translationYAnim = ObjectAnimator.ofFloat(view, "translationY", -3.0f,3.0f,-3.0f);
+        translationYAnim.setDuration(1500);
+        translationYAnim.setRepeatCount(ValueAnimator.INFINITE);
+        translationYAnim.setRepeatMode(ValueAnimator.RESTART);
+        translationYAnim.start();
+        animators.add(translationYAnim);
+
+        AnimatorSet btnSexAnimatorSet = new AnimatorSet();
+        btnSexAnimatorSet.playTogether(animators);
+        btnSexAnimatorSet.setStartDelay(delay);
+        btnSexAnimatorSet.start();
     }
 
     @Override
