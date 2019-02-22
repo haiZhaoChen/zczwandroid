@@ -1,0 +1,118 @@
+apply plugin: 'com.android.application'
+apply plugin: 'newlens'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.3'
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "org.bigdata.zczw"
+        minSdkVersion 18
+        targetSdkVersion 23
+        multiDexEnabled true
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'zczw'
+            keyPassword '123456'
+            storeFile file('zczw_auto.jks')
+            storePassword '123456'
+        }
+    }
+
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def file = output.outputFile
+//            output.outputFile = new File(file.parent, "zczw_v1.apk")
+//            //生成的文件名：myapp+版本名+生成日期+.apk
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        mavenCentral()
+    }
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+}
+
+dependencies {
+    compile  fileTree(include: ['*.jar'], dir: 'libs')
+    compile  files('libs/xUtils-2.6.14.jar')
+    compile  files('libs/jackson-all-1.9.0.jar')
+    compile  files('libs/universal-image-loader-1.9.0.jar')
+    compile  files('libs/BaiduLBS_Android.jar')
+    compile  project(':PullToRefresh')
+    compile  files('libs/AMap_Search_V3.4.0_20160811.jar')
+    compile  files('libs/AMap_Channel_Location_V1.4.0_20160708.jar')
+    compile  files('libs/AMap_2DMap_V2.9.0_20160525.jar')
+    compile  files('libs/Msc.jar')
+    compile  files('libs/jcore-android_v1.1.3.jar')
+    compile  files('libs/jpush-android_v3.0.6.jar')
+    compile  project(':IMKit')
+    compile  project(':RedPacket')
+    provided project(':IMLib')
+    compile  project(':QuSdk-RC')
+    compile  files('libs/MobCommons-2017.1201.1507.jar')
+    compile  files('libs/MobTools-2017.1201.1507.jar')
+    compile  files('libs/ShareSDK-Core-3.1.2.jar')
+    compile  files('libs/ShareSDK-QQ-3.1.2.jar')
+    compile  files('libs/ShareSDK-Wechat-3.1.2.jar')
+    compile  files('libs/ShareSDK-Wechat-Core-3.1.2.jar')
+    compile  files('libs/ShareSDK-Wechat-Moments-3.1.2.jar')
+    compile  files('libs/libammsdk.jar')
+
+
+    compile  'com.android.support:appcompat-v7:24.2.1'
+    compile  'com.android.support:support-v4:24.2.1'
+    compile  'com.android.support:recyclerview-v7:24.2.1'
+    compile  'com.squareup.picasso:picasso:2.5.2'
+    compile  'com.networkbench.newlens.agent.android:nbs.newlens.agent:2.4.4'
+    compile  'com.android.support:multidex:1.0.1'
+    compile  'com.android.support:design:24.2.1'
+    compile  'com.google.code.findbugs:jsr305:3.0.0'
+    compile  'com.github.bumptech.glide:glide:3.7.0'
+    compile  'pub.devrel:easypermissions:0.2.1'
+    compile  'com.squareup.okhttp3:okhttp:3.2.0'
+    compile  'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile  'com.squareup.okio:okio:1.12.0'
+    compile  'com.zhy:okhttputils:2.3.4'
+    compile  'com.google.code.gson:gson:2.8.0'
+    compile  'com.android.support.constraint:constraint-layout:1.0.2'
+    compile  'top.zibin:Luban:1.1.3'
+    compile  'com.contrarywind:Android-PickerView:4.0.1'
+    compile  'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    testCompile  'junit:junit:4.12'
+
+    compile  'com.shizhefei:LargeImageView:1.1.0'
+    compile  'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile  'com.github.barteksc:android-pdf-viewer:2.8.2'
+    compile  'com.github.bmelnychuk:atv:1.2.+'
+    compile  'com.hyman:flowlayout-lib:1.1.2'
+
+}

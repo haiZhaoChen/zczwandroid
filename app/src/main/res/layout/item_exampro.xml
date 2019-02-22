@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/exam_img_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/solid_radius_exam_orange"
+            android:padding="10dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <ImageView
+                    android:id="@+id/icon_img_bg"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@drawable/exam_pro_list2"
+                    android:layout_marginRight="12dp"/>
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/icon_img_bg"-->
+                    <!--android:layout_width="48dp"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center"-->
+                    <!--android:background="@drawable/icon_check_back_yellow">-->
+
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:src="@drawable/bank_setting"/>-->
+
+                <!--</LinearLayout>-->
+
+
+
+
+                <TextView
+                    android:id="@+id/exam_title_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="专业考试-收费"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon_img_bg"
+                    android:paddingLeft="5dp"/>
+
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_check_type_check_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/img_check_act"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/txt_type_check_act"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="事假（3天）"
+                        android:textSize="18sp"
+                        android:textColor="#666666"/>
+                    <TextView
+                        android:id="@+id/txt_check_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2018/05/04"
+                        android:textSize="16sp"
+                        android:textColor="#848484"
+                        android:layout_marginTop="2dp"
+                        android:layout_below="@id/txt_type_check_act"/>
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="5dp">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_frame"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_centerInParent="true">
+                    <TextView
+                        android:id="@+id/exam_go_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="看得分"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/exam_total_pro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textSize="40sp"
+                    android:textColor="@color/white"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="题"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:paddingTop="8dp"
+                    android:paddingLeft="5dp"
+                    android:layout_toRightOf="@+id/exam_total_pro"
+                    android:layout_centerVertical="true"/>
+
+
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

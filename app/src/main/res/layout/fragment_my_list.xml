@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8e8e8"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_list_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlecolor"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="消息列表"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/img_add_msg_list_frg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/de_ic_add"
+            android:paddingRight="12dp"
+            android:layout_gravity="right"/>
+    </android.support.v7.widget.Toolbar>
+
+    <fragment
+        android:id="@+id/conversationlist"
+        android:name="io.rong.imkit.fragment.ConversationListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

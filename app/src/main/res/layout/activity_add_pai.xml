@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="org.bigdata.zczw.activity.AddPaiActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/bar_add_pai_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlecolor">
+
+        <TextView
+            android:id="@+id/txt_cancel_pai"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/txt_title_pai_act"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="安全生产"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txt_push_pai"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="发布"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/edit_add_pai_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:hint="随手拍描述……"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:gravity="left|top"
+        android:lines="6"
+        android:padding="2dp"
+        android:layout_below="@id/bar_add_pai_act"/>
+
+    <RelativeLayout
+        android:id="@+id/video_content_pai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/rg_tag_pai_act"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/video_img_pai"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@color/black"/>
+        <ImageView
+            android:id="@+id/auto_video_img_pai"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_videocam_white_24dp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_grid_pai_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rg_tag_pai_act"
+        android:layout_above="@+id/ll_menu_pai_act">
+        <GridView
+            android:id="@+id/gridGallery_pai_act"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:horizontalSpacing="-10dp"
+            android:verticalSpacing="-10dp"
+            android:columnWidth="110dp"
+            android:layout_above="@id/location"
+            tools:listitem="@layout/gallery_item"
+            android:visibility="gone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerHorizontal="true">
+        </GridView>
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_tag_pai_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/edit_add_pai_act"
+        android:layout_marginBottom="10dp">
+        <RadioButton
+            android:id="@+id/rb_tag_zy"
+            android:checked="true"
+            android:text="重要"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            style="@style/pai_btn" />
+        <RadioButton
+            android:id="@+id/rb_tag_wt"
+            android:text="有问题"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            style="@style/pai_btn"/>
+        <RadioButton
+            android:id="@+id/rb_tag_jy"
+            android:text="好经验"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="80dp"
+            style="@style/pai_btn"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/ll_menu_pai_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#f9f9f9"
+        android:padding="6dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_add_pic_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/icon_pai_pic"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_cam_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/icon_pai_cam"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_video_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/icon_pai_rec"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_rec_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/icon_pai_video"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

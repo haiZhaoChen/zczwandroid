@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.bigdata.zczw.activity.ChangeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_rounded_miaobian"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/pwd_now"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="当前密码"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <include layout="@layout/layout_line" />
+
+            <EditText
+                android:id="@+id/pwd_update"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="修改密码 6至16位数字或字母"
+                android:padding="8dp"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:singleLine="true" />
+            <include layout="@layout/layout_line" />
+            <EditText
+                android:id="@+id/pwd_update_ok"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:enabled="false"
+                android:padding="8dp"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/pwd_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_denglu"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="确 定"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</LinearLayout>

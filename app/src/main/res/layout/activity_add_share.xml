@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    tools:context="org.bigdata.zczw.activity.AddShareActivity">
+
+    <EditText
+        android:id="@+id/edit_content_share_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="4"
+        android:hint="说说我的看法~"
+        android:gravity="left"
+        android:background="@color/white"
+        android:padding="4dp"
+        android:textColor="@color/text_black1"
+        android:textSize="16sp"
+        android:textColorHint="@color/text_black2"/>
+
+    <LinearLayout
+        android:id="@+id/ll_share_record_frg"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/edit_content_share_frg"
+        android:background="#f3f3f5"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/img_share_frg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/pictures_no"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/txt_share_content_frg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_black1"
+            android:minLines="3"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/solid_radius_gray2"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/rc_ext_location_tip"/>
+
+            <TextView
+                android:id="@+id/txt_location_share_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="石家庄市裕华区"
+                android:textSize="16sp"
+                android:textColor="@color/text_black2"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_type_share_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所有人"
+            android:textSize="16sp"
+            android:textColor="#4e7cb1"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:background="@drawable/solid_radius_gray2"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

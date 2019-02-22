@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#6000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f8f8f8"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模块选择"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_gravity="center"/>
+
+            <RadioGroup
+                android:id="@+id/rg_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_category_all"
+                    android:text="全部内容"
+                    android:checked="true"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_category_aq"
+                    android:text="安全生产"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_category_zt"
+                    android:text="直通一线"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:visibility="invisible"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="内容类别"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+            <RadioGroup
+                android:id="@+id/rg_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_tag_all"
+                    android:text="全部内容"
+                    android:checked="true"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_tag_zy"
+                    android:text="重要"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_tag_wt"
+                    android:text="有问题"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_tag_jy"
+                    android:text="好经验"
+                    style="@style/pai_type_btn"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布时段"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+            <RadioGroup
+                android:id="@+id/rg_add_time_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_add_time_type_all"
+                    android:text="全部内容"
+                    android:checked="true"
+                    style="@style/pai_type_btn2"
+                    android:layout_weight="5"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_add_time_type_before"
+                    android:text="岗前"
+                    style="@style/pai_type_btn2"
+                    android:layout_weight="3.75"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_add_time_type_on"
+                    android:text="岗中"
+                    style="@style/pai_type_btn2"
+                    android:layout_weight="3.75"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_add_time_type_after"
+                    android:text="岗后"
+                    style="@style/pai_type_btn2"
+                    android:layout_weight="3.75"
+                    android:layout_marginRight="10dp"/>
+                <RadioButton
+                    android:id="@+id/rb_add_time_type_else"
+                    android:text="其他"
+                    style="@style/pai_type_btn2"
+                    android:layout_weight="3.75"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

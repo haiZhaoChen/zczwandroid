@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_check_pop_check"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/icon_txt_check"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/img_check_pop_check">
+            <TextView
+                android:id="@+id/txt_type_pop_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="在岗 07:45"
+                android:textSize="16sp"
+                android:textColor="@color/text_black1"/>
+            <TextView
+                android:id="@+id/txt_location_pop_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="石家庄"
+                android:textSize="14sp"
+                android:textColor="@color/text_black2"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

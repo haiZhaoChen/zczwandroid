@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#eff0f5"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/grid_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+                <org.bigdata.zczw.ui.MyGridView
+                    android:id="@+id/member_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="8dp"
+                    android:horizontalSpacing="8dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="12dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#eff0f5"/>
+                <TextView
+                    android:id="@+id/user_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="全部群成员"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_info_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grid_img"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/msg_data"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="修改群名称"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@color/white"/>
+                <TextView
+                    android:id="@+id/name_note"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="点击修改"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/msg_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="10dp"
+                android:background="@color/white"
+                android:layout_below="@id/group_info_txt">
+
+                <TextView
+                    android:id="@+id/notify_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="消息免打扰"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch_notify_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@id/notify_group"/>
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_below="@id/notify_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f2f2f2"/>
+
+                <TextView
+                    android:id="@+id/top_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="会话置顶"
+                    android:layout_below="@id/view1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch_top_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@id/top_group"/>
+                <View
+                    android:id="@+id/view2"
+                    android:layout_below="@id/top_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f2f2f2"/>
+
+                <TextView
+                    android:id="@+id/msg_clean_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="清空聊天信息"
+                    android:layout_below="@id/view2"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:padding="10dp"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/btn_login_out"
+                android:text=""
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_below="@id/msg_set"/>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <RadioGroup
+        android:id="@+id/main_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <RadioButton
+            android:id="@+id/btn_news_main"
+            android:text="动态"
+            android:drawableTop="@drawable/btnnews"
+            android:checked="true"
+            style="@style/mainradiobutton" />
+        <RadioButton
+            android:id="@+id/btn_friend_main"
+            android:text="随手拍"
+            android:drawableTop="@drawable/btnfriend"
+            style="@style/mainradiobutton" />
+        <RadioButton
+            android:id="@+id/btn_addmsg_main"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:padding="6dp"
+            android:layout_margin="10dp"
+            android:background="@color/titlecolor"
+            android:drawableTop="@drawable/de_ic_add" />
+
+        <RadioButton
+            android:id="@+id/btn_msg_main"
+            android:text="通讯"
+            android:drawableTop="@drawable/btnmsg"
+            style="@style/mainradiobutton"/>
+        <RadioButton
+            android:id="@+id/btn_set_main"
+            android:text="我"
+            android:drawableTop="@drawable/btnset"
+            style="@style/mainradiobutton" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/btn_content"
+        android:layout_width="fill_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <View
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:background="#00000000" />
+        <View
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:background="#00000000"/>
+        <View
+            android:layout_height="fill_parent"
+            android:layout_width="60dp"
+            android:clickable="false"
+            android:background="#00000000"/>
+        <View
+            android:id="@+id/target"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:background="#00000000"/>
+        <View
+            android:id="@+id/set_main_act"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:background="#00000000"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1_main_act"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"
+        android:layout_above="@id/main_radiogroup"/>
+
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/line1_main_act">
+    </FrameLayout>
+</RelativeLayout>

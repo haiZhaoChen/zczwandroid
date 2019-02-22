@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_regulation_item"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_below="@id/view_regulation"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_regulation"
+            android:layout_height="28dp"
+            android:layout_width="28dp"
+            android:src="@drawable/icon_doc"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/txt_name_regulation"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="规章阅读"
+            android:textColor="@color/text_black1"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/img_regulation"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:id="@+id/img_show_regulation"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_doc_down" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@id/rl_regulation_item"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:background="#f0f0f0" />
+</RelativeLayout>

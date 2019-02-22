@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="org.bigdata.zczw.activity.GroupListActivity">
+
+    <!--<TextView-->
+        <!--android:id="@+id/new_group"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="14dp"-->
+        <!--android:text="新建群组"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="@color/black"/>-->
+
+    <ListView
+        android:id="@+id/de_group_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

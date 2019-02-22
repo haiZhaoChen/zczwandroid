@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000">
+    <LinearLayout
+        android:id="@+id/more_content"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@drawable/msg_more"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:id="@+id/more_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:layout_marginTop="6dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_share"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="分享"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray"/>
+
+        <LinearLayout
+            android:id="@+id/more_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/call"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="联系此人"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray"/>
+
+        <LinearLayout
+            android:id="@+id/more_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/delete"/>
+            <TextView
+                android:id="@+id/txt_del"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/more_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_error"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="举报"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

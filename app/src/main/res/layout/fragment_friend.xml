@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e0e3"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_friend_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlecolor"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系人"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/img_add_msg_friend_frg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/de_ic_add"
+            android:paddingRight="12dp"
+            android:layout_gravity="right"/>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_search_friend_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#e0e0e3"
+        android:layout_below="@id/tool_bar_friend_frg">
+        <SearchView
+            android:id="@+id/seacher_friends"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:iconifiedByDefault="false"
+            android:inputType="textCapCharacters"
+            android:queryHint="姓名/职务/部门 文字或语音检索"
+            android:background="@drawable/shape_juxing_zhijiao_baise"
+            android:imeOptions="actionGo"
+            android:paddingLeft="-14dp"/>
+        <ImageView
+            android:id="@+id/img_voice_search_frg"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:src="@drawable/voice"/>
+    </LinearLayout>
+
+
+    <org.bigdata.zczw.ui.DePinnedHeaderListView
+        android:id="@+id/de_ui_friend_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/ll_search_friend_frg"
+        android:background="#f7f7f7"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none" />
+
+    <org.bigdata.zczw.ui.DeSwitchGroup
+        android:id="@+id/de_ui_friend_message"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ll_search_friend_frg"
+        android:layout_marginTop="8dp"
+        android:paddingTop="10dp"
+        app:orientation1="vertical"
+        app:pinned_item1="@layout/de_item_pinned"
+        app:pinned_item_array1="@array/de_search_letters" />
+</RelativeLayout>

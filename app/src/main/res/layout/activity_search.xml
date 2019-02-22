@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.bigdata.zczw.activity.SearchActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_search_room_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f0f0f0">
+        <TextView
+            android:id="@+id/btn_search_search_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="搜索"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toLeftOf="@+id/btn_search_search_act"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_search_radius">
+
+            <ImageView
+                android:id="@+id/img_voice_search_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@drawable/voice"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <SearchView
+                android:id="@+id/search_search_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:inputType="textCapCharacters"
+                android:queryHint="输入要搜索的内容"
+                android:textSize="16sp"
+                android:textColor="@color/text_black1"
+                android:background="@drawable/shape_search_radius"
+                android:layout_toLeftOf="@+id/img_voice_search_act">
+            </SearchView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <org.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listView_search_act"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:dividerHeight="6dp"
+        android:divider="#ebf0f2"
+        android:layout_below="@+id/rl_search_room_frg">
+
+    </org.handmark.pulltorefresh.library.PullToRefreshListView>
+
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.bigdatacn.zczw.qunfaxiaoxi.SendGroupMesActivity">
+    <TextView
+        android:id="@+id/tv_allname"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="群发消息收信人显示界面"
+        android:padding="5dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:background="@drawable/shape_juxing_zhijiao_baise"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/de_group_delete"
+        android:text="发送消息"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

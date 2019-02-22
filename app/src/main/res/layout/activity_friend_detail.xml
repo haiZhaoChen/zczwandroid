@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#eff0f5"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_friend_detail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/de_default_portrait"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/txt_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@id/img_friend_detail"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/no_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="消息免打扰"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+        <Switch
+            android:id="@+id/switch_no_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@id/no_note"/>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_below="@id/no_note"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f2f2f2"/>
+
+        <TextView
+            android:id="@+id/msg_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会话置顶"
+            android:layout_below="@id/view1"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+        <Switch
+            android:id="@+id/switch_msg_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@id/msg_top"/>
+        <View
+            android:id="@+id/view2"
+            android:layout_below="@id/msg_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f2f2f2"/>
+
+        <TextView
+            android:id="@+id/msg_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="清空聊天信息"
+            android:layout_below="@id/view2"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

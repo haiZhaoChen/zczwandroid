@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_bar_msg_tag_act"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <ImageView
+            android:id="@+id/img_back_act"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_back_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:padding="2dp"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/txt_next_msg_tag_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/solid_radius_titlecolor1"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_bar_msg_tag_act"
+        android:layout_above="@+id/txt_next_msg_tag_act"
+
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left|center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/exam_qiu_selection"
+                android:layout_marginRight="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="选择学习讨论的类型"
+                android:textSize="16sp"
+                android:textColor="@color/text_black2"
+                android:textAlignment="center"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <RadioGroup
+                android:id="@+id/rg_tag_type_leader1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_tag_gg"
+                    android:checked="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="公共"
+
+                    style="@style/pai_btn" />
+                <RadioButton
+                    android:id="@+id/rb_tag_sf"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="收费"
+
+                    style="@style/pai_btn"/>
+
+                <RadioButton
+                    android:id="@+id/rb_tag_yh"
+                    android:text="养护"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    style="@style/pai_btn"/>
+
+            </RadioGroup>
+
+
+            <RadioGroup
+                android:id="@+id/rg_tag_type_leader11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_tag_jd"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="机电"
+
+                    style="@style/pai_btn" />
+                <RadioButton
+                    android:id="@+id/rb_tag_xd"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="信调"
+
+                    style="@style/pai_btn"/>
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"/>
+
+            </RadioGroup>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="left|center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/exam_qiu_selection"
+                android:layout_marginRight="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="选择学习讨论的类型"
+                android:textSize="16sp"
+                android:textColor="@color/text_black2"
+                android:textAlignment="center"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <RadioGroup
+                android:id="@+id/rg_tag_type_leader2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_tag_yizhou"
+                    android:checked="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="一周"
+
+                    style="@style/pai_btn" />
+                <RadioButton
+                    android:id="@+id/rb_tag_yue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="一个月"
+
+                    style="@style/pai_btn"/>
+
+
+
+                <RadioButton
+                    android:id="@+id/rb_tag_sanyue"
+                    android:text="三个月"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+
+                    style="@style/pai_btn"/>
+
+            </RadioGroup>
+
+
+            <RadioGroup
+                android:id="@+id/rg_tag_type_leader22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/rb_tag_liuyue"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="六个月"
+
+                    style="@style/pai_btn" />
+                <RadioButton
+                    android:id="@+id/rb_tag_year"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="一年"
+
+                    style="@style/pai_btn"/>
+
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"/>
+
+            </RadioGroup>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

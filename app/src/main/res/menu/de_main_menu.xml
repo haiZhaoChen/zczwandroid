@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/add_item1"
+        android:icon="@drawable/qunfa"
+        android:title="群发消息"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/add_item2"
+        android:icon="@drawable/qunliao"
+        android:title="发起讨论"
+        app:showAsAction="never"/>
+</menu>

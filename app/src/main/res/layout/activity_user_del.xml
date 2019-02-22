@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <SearchView
+        android:id="@+id/seacher_friends_del"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:inputType="textCapCharacters"
+        android:queryHint="搜索"
+        android:background="@drawable/shape_juxing_zhijiao_baise"
+        android:imeOptions="actionGo"/>
+
+    <org.bigdata.zczw.ui.DePinnedHeaderListView
+        android:id="@+id/de_ui_friend_list_del"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/seacher_friends_del"
+        android:background="#f7f7f7"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:scrollbars="none" />
+
+    <org.bigdata.zczw.ui.DeSwitchGroup
+        android:id="@+id/de_ui_friend_message_del"
+        android:layout_width="@dimen/px_to_dip_50"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/seacher_friends_del"
+        android:layout_marginTop="@dimen/px_to_dip_16"
+        android:paddingTop="@dimen/px_to_dip_20"
+        app:orientation1="vertical"
+        app:pinned_item1="@layout/de_item_pinned"
+        app:pinned_item_array1="@array/de_search_letters" />
+
+</RelativeLayout>
+

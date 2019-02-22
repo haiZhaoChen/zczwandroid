@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">张承政务</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+
+    <string name="de_actionbar_sub_group">"群组"</string>
+    <string name="de_actionbar_sub_private">"我的私人会话"</string>
+    <string name="de_actionbar_sub_discussion">"我的讨论组"</string>
+    <string name="de_actionbar_sub_system">"系统消息"</string>
+    <string name="de_actionbar_sub_defult">"聊天"</string>
+
+    <string name="location">位置</string>
+    <string name="send_location">发送位置</string>
+    <string name="real_time_location_sharing">实时位置共享</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="friend_list_multi_choice_comfirt_btn">"确定(%1$s)"</string>
+
+    <string name="original_password_text">初始密码</string>
+    <string name="new_password">新密码</string>
+    <string name="confirm_new_password">确认新密码</string>
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
+
+</resources>

@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/rl_pai_frg"
+    tools:context="org.bigdata.zczw.fragment.PaiFragment">
+
+    <View
+        android:id="@+id/view_pai_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_pai_frg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlecolor">
+
+        <LinearLayout
+            android:id="@+id/ll_type_pai_frg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:text="随手拍"/>
+            <ImageView
+                android:id="@+id/img_icon_pai_frg"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_down"
+                android:layout_marginLeft="6dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_add_pai"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_bar_pai_cam"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/img_null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_null"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <org.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pai_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="6dp"
+        android:divider="#ebf0f2"
+        android:layout_below="@id/tool_bar_pai_frg">
+
+    </org.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+</RelativeLayout>

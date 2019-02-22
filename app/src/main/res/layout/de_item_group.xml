@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/group_adapter_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        android:src="@drawable/rc_group_default_portrait" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/group_adapter_img">
+        <TextView
+            android:id="@+id/group_adaper_name"
+            style="@style/DemoTextStyleBigBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="张承高速"/>
+        <TextView
+            android:id="@+id/group_adaper_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="100名群成员"
+            android:textSize="15sp"
+            android:textColor="@color/gray"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/group_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/de_group_chat_selector" />
+
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.PdfActivity">
+
+    <ProgressBar
+        android:id="@+id/bar_pdf_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_pdf_act"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/btn_before_pdf_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="上一节"
+            android:textSize="16sp"
+            android:textColor="@color/text_black1"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#b3b3b3"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/btn_after_pdf_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="下一节"
+            android:textSize="16sp"
+            android:textColor="@color/text_black1"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_pdf_act"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#b3b3b3"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_above="@+id/ll_pdf_act"/>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/line_pdf_act"/>
+
+</RelativeLayout>

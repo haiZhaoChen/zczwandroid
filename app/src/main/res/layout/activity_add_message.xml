@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/line_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#f9f9f9"
+        android:padding="6dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_add_pic_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_pai_pic"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_cam_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_pai_wenjian"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_add_topic_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_topic_add"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_video_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_pai_rec"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_rec_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_pai_video"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/location"
+        android:layout_above="@id/line_mode"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#311717"
+            android:text="未定位"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/location">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/msg_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_style"
+                android:padding="1dp">
+                <EditText
+                    android:id="@+id/message_detailed_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f8f8f8"
+                    android:gravity="left|top"
+                    android:hint="温馨提示：可发表3000字以内动态，选配最多9张图、1个视频或5个文件。"
+                    android:lines="6"
+                    android:maxLength="3000"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+                <!--android:maxLength="120"-->
+
+                <TextView
+                    android:id="@+id/txt_see_names_add_act"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/titlecolor"
+                    android:gravity="center"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:maxLength="16"
+                    android:ellipsize="end"
+                    android:background="@drawable/edit_frame"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/message_detailed_info"/>
+            </RelativeLayout>
+
+            <org.bigdata.zczw.ui.NoScrollListView
+                android:id="@+id/file_list_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/msg_content"
+                android:layout_above="@+id/location"
+                android:scrollbars="none"
+                android:divider="@null"
+                android:visibility="gone">
+
+            </org.bigdata.zczw.ui.NoScrollListView>
+
+            <RelativeLayout
+                android:id="@+id/add_video_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_below="@id/msg_content"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/img_video"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    android:background="@color/gray"/>
+                <ImageView
+                    android:id="@+id/video_play"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="35dp"/>
+            </RelativeLayout>
+
+            <org.bigdata.zczw.ui.NoScrollGridView
+                android:id="@+id/gridGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:columnWidth="110dp"
+                android:horizontalSpacing="-10dp"
+                android:verticalSpacing="-10dp"
+                android:layout_below="@id/msg_content"
+                android:stretchMode="columnWidth"
+                tools:listitem="@layout/gallery_item"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#f0f0f0"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal">
+            </org.bigdata.zczw.ui.NoScrollGridView>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

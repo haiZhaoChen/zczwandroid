@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/pop_del_bg">
+
+        <TextView
+            android:id="@+id/tv_copy_com_del"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="复制"
+            android:textSize="15sp"
+            android:textColor="#fff" />
+        <View
+            android:id="@+id/view_copy"
+            android:layout_width="1px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white" />
+        <TextView
+            android:id="@+id/tv_delete_com_del"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="删除"
+            android:textSize="15sp"
+            android:textColor="#fff" />
+        <View
+            android:id="@+id/view_delete"
+            android:layout_width="1px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white" />
+        <TextView
+            android:id="@+id/tv_cancel_com_del"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="取消"
+            android:textSize="15sp"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+
+</LinearLayout>

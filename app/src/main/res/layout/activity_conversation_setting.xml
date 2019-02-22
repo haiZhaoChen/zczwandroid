@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_juxing_zhijiao_baise">
+                <GridView
+                    android:id="@+id/gridGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="276dp"
+                    android:layout_gravity="top"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="4"
+                    android:padding="0dp"
+                    android:verticalSpacing="10dp"
+                    android:fastScrollEnabled="false" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="org.bigdata.zczw.fragment.DeSettingFragment">
+        </fragment>
+    </FrameLayout>
+
+</LinearLayout>

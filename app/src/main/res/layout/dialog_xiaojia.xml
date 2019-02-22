@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6731c"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="是否确认销假？"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_title"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="24dp"
+                android:src="@drawable/icon_circle" />
+
+            <RelativeLayout
+                android:layout_width="96dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:id="@+id/txt_days_xiaojia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#849db2"
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/txt_day_xiaojia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_days_xiaojia"
+                    android:layout_centerHorizontal="true"
+                    android:text="今天是第3天"
+                    android:textColor="#849db2"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/txt_days_xiaojia"
+                    android:layout_above="@id/txt_day_xiaojia"
+                    android:text="天"
+                    android:textColor="#849db2"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="6dp"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_time_xiaojia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:padding="4dp"
+            android:text="起始日期：2018年05月04日"
+            android:textColor="#8caeca"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_type_xiaojia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_time_xiaojia"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:padding="4dp"
+            android:text="请假类型：事假"
+            android:textColor="#8caeca"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/txt_type_xiaojia"
+            android:background="#989898" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_cancel_xiaojia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="取消"
+                android:textColor="#8d8d8d"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#989898" />
+
+            <TextView
+                android:id="@+id/txt_ok_xiaojia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="确认"
+                android:textColor="#e6731c"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

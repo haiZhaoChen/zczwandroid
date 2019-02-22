@@ -1,0 +1,183 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/titlecolor</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/royalblue</item>
+    </style>
+
+
+    <style name="mainradiobutton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/btn_text_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WinDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="DemoTextStyleBigBlack">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333232</item>
+    </style>
+
+    <style name="DemoTextStyleMiddle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#999999</item>
+    </style>
+
+    <style name="DemoTextStyleSmall">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#999999</item>
+    </style>
+
+    <style name="anim_popup_dir">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <style name="anim_pop_down_dir">
+        <item name="android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/out_anim</item>
+    </style>
+
+    <style name="btn">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SwitchButtonStyle">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="AliyunVideoUIStytle" >
+        <item name="qusnap_background_color">@color/color_bg</item> //背景主题色
+        <item name="qusnap_tint_color">@color/tint_color</item> //录制进度条颜色
+        <item name="qusnap_timeline_backgound_color">@color/timeline_backgound_color</item> //录制进度条背景色
+        <item name="qusnap_timeline_del_backgound_color">@color/timeline_background_del_color</item> //录制删除进度颜色
+        <item name="qusnap_back_icon">@mipmap/icon_back</item> // 返回按钮图标
+        <item name="qusnap_switch_light_icon">@drawable/snap_switch_light_selector</item> //闪光灯选择器
+        <item name="qusnap_switch_light_icon_disable">@mipmap/icon_light_dis</item>// 闪光灯禁用图标
+        <item name="qusnap_switch_light_icon_visibility">visible</item> // 闪光灯显隐属性
+        <item name="qusnap_switch_camera_icon">@drawable/snap_switch_camera</item> //摄像头选择器
+        <item name="qusnap_switch_camera_icon_visibility">visible</item> //摄像头显隐属性
+        <item name="qusnap_beauty_icon">@drawable/snap_switch_beauty</item> //美颜选择器
+        <item name="qusnap_beauty_icon_visibility">gone</item> // 美颜显隐属性
+        <item name="qusnap_record_icon">@drawable/snap_record_state_selector</item> //录制选择器
+        <item name="qusnap_delete_icon">@drawable/snap_icon_delete</item> //删除选择器
+        <item name="qusnap_complete_icon">@drawable/snap_icon_complete</item> //完成选择器
+        <item name="qusnap_gallery_icon">@mipmap/icon_default</item> //相册按钮
+        <item name="qusnap_gallery_icon_visibility">gone</item>//相册的显示隐藏
+        <item name="qusnap_time_txt_color">@android:color/white</item> //录制时间文字颜色
+        <item name="qusnap_time_txt_size">15dp</item> //录制时间文字大小
+        <item name="qusnap_time_txt_visibility">visible</item> //录制时间文字显隐属性
+        <item name="qusnap_time_line_pos_y">0dp</item> //录制进度条向上偏移量
+        <item name="qusnap_crop_sweep_left">@mipmap/icon_sweep_left</item> //裁剪滑动条左图标
+        <item name="qusnap_crop_sweep_right">@mipmap/icon_sweep_right</item> //裁剪滑动条右图标
+        <item name="qusnap_crop_seek_frame">@mipmap/icon_frame</item> //裁剪播放帧进度图标
+        <item name="qusnap_crop_seek_padding_color">@android:color/holo_red_dark</item> //裁剪滑动条上下边框颜色
+        <item name="qusnap_crop_icon_transform">@drawable/snap_transform_selector</item> //裁剪模式切换选择器
+        <item name="qusnap_crop_icon_transform_visibility">visible</item> //裁剪模式显隐属性
+        <item name="qusnap_crop_time_txt_color">@android:color/white</item> //裁剪视频时长文字颜色
+        <item name="qusnap_crop_time_txt_size">15dp</item> //裁剪视频时长文字大小
+        <item name="qusnap_crop_txt_visibility">visible</item> //裁剪视频时长文字显隐属性
+    </style>
+
+    <style name="pai_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rb_pai_btn</item>
+        <item name="android:textColor">@color/pai_rb_txt</item>
+    </style>
+
+    <style name="fab_btn">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rb_pai_btn</item>
+        <item name="android:textColor">@color/pai_rb_txt</item>
+    </style>
+
+
+
+
+
+    <style name="pai_type_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/btn_pai</item>
+        <item name="android:textColor">@color/pai_type_txt</item>
+    </style>
+
+    <style name="pai_type_btn_hidden">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+
+
+    </style>
+
+    <style name="feed_type_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/pai_type_txt</item>
+    </style>
+    <style name="pai_type_btn2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/btn_pai</item>
+        <item name="android:textColor">@color/pai_type_txt</item>
+    </style>
+
+    <style name="check_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/btn_check_color</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/btn_check</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+    </style>
+
+</resources>

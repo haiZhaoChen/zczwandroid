@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#6000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f8f8f8"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排名类型"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_gravity="left"/>
+
+            <RadioGroup
+                android:id="@+id/integral_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/integral_type_all"
+                    android:text="公共"
+                    android:checked="true"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_type_job"
+                    android:text="专业"
+                    android:checked="false"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_type_unit"
+                    android:text="机关科室"
+                    android:checked="false"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_type_4"
+                    android:text="处属单位"
+                    android:checked="false"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+            </RadioGroup>
+            <RadioGroup
+                android:id="@+id/integral_type1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/integral_type_5"
+                    android:text="专业"
+                    style="@style/pai_type_btn"
+                    android:checked="false"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_type_6"
+                    android:text="机关科室"
+                    style="@style/pai_type_btn"
+                    android:checked="false"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_type_7"
+                    android:text="处属单位"
+                    style="@style/pai_type_btn"
+                    android:checked="false"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    style="@style/pai_type_btn_hidden"
+                    android:layout_marginRight="10dp"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间选择"
+                android:textSize="16sp"
+                android:textColor="#999999"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"/>
+
+            <RadioGroup
+                android:id="@+id/integral_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/integral_time_week"
+                    android:text="本年度"
+                    android:checked="true"
+                    style="@style/pai_type_btn"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_time_month"
+                    android:text="近30天"
+                    style="@style/pai_type_btn"
+                    android:checked="false"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_time_year"
+
+                    style="@style/pai_type_btn_hidden"
+                    android:layout_marginRight="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/integral_time_all"
+
+                    style="@style/pai_type_btn_hidden"/>
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/integral_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

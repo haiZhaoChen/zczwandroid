@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/personal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="姓名"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:id="@+id/personal_portrait"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/de_default_portrait" />
+
+    <View
+        android:layout_below="@id/personal_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFCECBCA" />
+
+
+
+    <TextView
+        android:id="@+id/possition_text"
+        style="@style/DemoTextStyleBigBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="单位/部门"
+        android:layout_below="@id/personal_portrait"/>
+
+    <TextView
+        android:id="@+id/personal_units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:textColor="#b2b2b2"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/possition_text"/>
+
+    <View
+        android:layout_below="@id/possition_text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFCECBCA" />
+
+
+    <TextView
+        android:id="@+id/department_text"
+        style="@style/DemoTextStyleBigBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="岗位"
+        android:layout_marginTop="32dp"
+        android:layout_below="@id/possition_text"/>
+
+    <TextView
+        android:id="@+id/personal_jobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:textColor="#b2b2b2"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/department_text"/>
+
+    <View
+        android:id="@+id/ll_gang"
+        android:layout_below="@id/department_text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFCECBCA"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_personal_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_gang">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人动态"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            style="@style/DemoTextStyleBigBlack"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/dir_choose" />
+    </RelativeLayout>
+
+    <View
+        android:layout_below="@id/rl_personal_detail"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFCECBCA"/>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/send_voip"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_marginRight="24dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:background="@drawable/btn_call"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_alignParentBottom="true">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/btn_call_icon"/>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/send_message"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_marginRight="24dp"-->
+        <!--android:background="@drawable/btn_send"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_above="@id/send_voip">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/btn_msg_icon"/>-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/send_voip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/frame_radiu_gray">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/call_phone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="18dp"
+            android:src="@drawable/call_into"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拨打电话"
+            android:textSize="16sp"
+            android:textColor="#707070"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/send_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/frame_radiu_gray"
+        android:layout_above="@id/send_voip">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/send_msg"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="18dp"
+            android:src="@drawable/call_into"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送消息"
+            android:textSize="16sp"
+            android:textColor="#707070"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+</RelativeLayout>

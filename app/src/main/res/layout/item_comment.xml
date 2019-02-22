@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <RelativeLayout
+        android:id="@+id/comment_rl_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/comment_iv_userProfile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/de_default_portrait" />
+
+        <TextView
+            android:id="@+id/comment_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/comment_iv_userProfile"
+            android:text="张三"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/comment_tv_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="3dp"
+            android:text="6月27日 10:23"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            />
+        <TextView
+            android:id="@+id/comment_tv_commentContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="这个不错啊\n\n\n\"
+            android:textSize="16sp"
+            android:layout_below="@+id/comment_tv_name"
+            android:layout_toRightOf="@id/comment_iv_userProfile"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#cccccc" />
+
+
+</FrameLayout>

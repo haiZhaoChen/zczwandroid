@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.bigdata.zczw.fragment.MsgFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/titlecolor">
+
+        <RadioGroup
+            android:id="@+id/rg_frg_msg"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/btn_msg_bar"
+            android:layout_gravity="center">
+            <RadioButton
+                android:id="@+id/rb_msg_msg_frg"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:text="消息"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:background="@drawable/msg_bar"
+                android:textColor="@color/sel_frg_msg_rb_text_color"/>
+            <RadioButton
+                android:id="@+id/rb_friend_msg_frg"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="联系人"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:background="@drawable/msg_bar_right"
+                android:textColor="@color/sel_frg_msg_rb_text_color"/>
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/img_add_msg_frg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/de_ic_add"
+            android:paddingRight="12dp"
+            android:layout_gravity="right"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_frg_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

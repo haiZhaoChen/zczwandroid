@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_com"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="3dp"
+    android:background="#e5e5e5">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            android:id="@+id/txt_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复"
+            android:textColor="#2e2d2e"
+            android:textSize="16sp"
+            android:layout_margin="4dp"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/comment_msg_userProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/de_default_portrait" />
+
+        <TextView
+            android:id="@+id/comment_msg_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/comment_msg_userProfile"
+            android:layout_toLeftOf="@id/txt_reply"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="张三"
+            android:textSize="16sp"
+            android:textColor="#2e2d2e" />
+        <TextView
+            android:id="@+id/comment_msg_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6月27日 10:23"
+            android:textColor="#8d8b8b"
+            android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/comment_msg_name"
+            android:layout_toRightOf="@id/comment_msg_userProfile"
+            android:layout_alignBottom="@id/comment_msg_userProfile"
+            android:gravity="bottom"/>
+        <TextView
+            android:id="@+id/comment_msg_commentContent"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:text="这个不错啊"
+            android:textSize="15sp"
+            android:textColor="#5a5858"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
+            android:layout_centerHorizontal="true"
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="3dp"
+            android:layout_below="@id/comment_msg_publish_time"/>
+
+
+
+        <View
+            android:id="@+id/line_com_item"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e5e5e5"
+            android:layout_below="@id/comment_msg_commentContent"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</RelativeLayout>

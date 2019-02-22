@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebebeb"
+    tools:context="org.bigdata.zczw.activity.TagCreateActivity">
+
+    <TextView
+        android:id="@+id/tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标签名字"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+    <LinearLayout
+        android:id="@+id/edit_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/tag_name">
+        <EditText
+            android:id="@+id/tag_name_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入标签名"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tag_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成员"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/edit_txt"/>
+
+    <Button
+        android:id="@+id/btn_tag_delete"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_margin="20dp"
+        android:text="删除标签"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_delete_tag"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tag_member"
+        android:layout_above="@id/btn_tag_delete"
+        android:background="#ebebeb">
+        <GridView
+            android:id="@+id/gridView_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:numColumns="5"
+            android:stretchMode="columnWidth">
+        </GridView>
+    </LinearLayout>
+
+
+</RelativeLayout>

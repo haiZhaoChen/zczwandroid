@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_msg_power"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="org.bigdata.zczw.activity.MsgPowerActivity">
+
+    <ImageView
+        android:id="@+id/img_back_act"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/icon_back_black"
+        android:layout_margin="16dp"
+        android:padding="2dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <RelativeLayout
+            android:id="@+id/rl_all_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/img_all_msg_act"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icon_select_all"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/img_all_msg_act"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公开"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_black1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所有的同事可见"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="哈"
+                android:textSize="16sp"
+                android:layout_toRightOf="@+id/ll_all"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_my_unit_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/img_my_unit_msg_act"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icon_select_unit"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/img_my_unit_msg_act"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本部门可见"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_black1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本部门的同事可见"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_select_list_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/img_select_msg_act"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/icon_select_select"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/img_select_msg_act"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="从通讯录选择"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_black1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="自由选择可见人员"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:padding="20dp">
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

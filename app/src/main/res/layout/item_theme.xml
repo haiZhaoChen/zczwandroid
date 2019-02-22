@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <!--<ImageView-->
+        <!--android:layout_width="36dp"-->
+        <!--android:layout_height="36dp" -->
+        <!--android:src="@drawable/img_update_version"/>-->
+
+    <org.bigdata.zczw.ui.CircleImageView
+        android:id="@+id/img_theme_item"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/pictures_no"
+        android:scaleType="fitXY"
+        app:type="rounded_rect"
+        app:rectRoundRadius="6dp"/>
+
+    <TextView
+        android:id="@+id/txt_date_theme_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017-05-27"
+        android:textSize="16sp"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/txt_title_theme_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="张承政务端午节活动"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:paddingLeft="8dp"
+        android:paddingBottom="8dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/img_theme_item"
+        android:layout_toLeftOf="@id/txt_date_theme_item"/>
+
+    <TextView
+        android:id="@+id/txt_content_theme_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="红红火火恍恍惚惚呵呵呵呵"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/img_theme_item"
+        android:layout_below="@id/txt_title_theme_item"
+        android:layout_alignBottom="@id/img_theme_item"
+        android:gravity="bottom"
+        android:paddingLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/txt_num_theme_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评论12"
+        android:textSize="14sp"
+        android:layout_below="@id/txt_content_theme_item"
+        android:layout_toRightOf="@id/txt_date_theme_item"
+        android:layout_marginLeft="12dp"
+        android:visibility="gone"/>
+    
+</RelativeLayout>

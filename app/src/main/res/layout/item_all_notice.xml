@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/img_user_por_all_notice_item"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/de_default_portrait"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_record_all_notice_item"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/txt_record_all_notice_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="000000"
+                android:textSize="14sp"
+                android:textColor="#99989a"
+                android:maxLines="3"
+                android:gravity="center"
+                android:ellipsize="end"/>
+            <ImageView
+                android:id="@+id/img_record_all_notice_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pictures_no"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/txt_user_name_all_notice_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textColor="#507daf"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/img_user_por_all_notice_item"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
+        <TextView
+            android:id="@+id/txt_info_all_notice_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textColor="@color/text_black1"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/txt_user_name_all_notice_item"
+            android:layout_marginTop="2dp"/>
+        <TextView
+            android:id="@+id/txt_name_all_notice_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textColor="#507daf"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/txt_info_all_notice_item"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:id="@+id/txt_time_all_notice_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textColor="#99989a"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/img_user_por_all_notice_item"
+            android:layout_alignBottom="@+id/img_user_por_all_notice_item"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/txt_content_all_notice_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textColor="@color/text_black2"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/img_user_por_all_notice_item"
+            android:layout_toLeftOf="@+id/rl_record_all_notice_item"
+            android:layout_below="@+id/img_user_por_all_notice_item"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="3dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f7f7f8"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/img_user_por_all_notice_item"
+            android:layout_marginTop="6dp"/>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

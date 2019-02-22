@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+    <string-array name="more">
+        <item>"更多"</item>
+        <item>"删除"</item>
+        <item>"举报"</item>
+        <item>"联系此人"</item>
+    </string-array>
+</resources>
