@@ -83,6 +83,8 @@ public class MsgTimeTypeActivity extends AppCompatActivity implements View.OnCli
         timeList.add(oneDay*90);
         timeList.add(oneDay*180);
         timeList.add(oneDay*365);
+        addTimeType = 0;
+        addType = "1";
 
         tagList = (ArrayList<MsgTag>) getIntent().getSerializableExtra("tag");
 

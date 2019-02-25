@@ -291,6 +291,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
+                setResult(10001);
                 finish();
 
             }
@@ -393,6 +394,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                     intent.putExtra("answers",(Serializable) dataSource);
                     startActivity(intent);
                     //关闭本页面
+                    setResult(10001);
                     finish();
 
                 }
@@ -520,6 +522,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                     showReturnNoticeDialog();
 
                 }else {
+                    setResult(10001);
                     finish();
                 }
 
