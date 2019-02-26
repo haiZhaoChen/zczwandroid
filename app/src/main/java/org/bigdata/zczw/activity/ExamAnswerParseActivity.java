@@ -1,5 +1,6 @@
 package org.bigdata.zczw.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,14 @@ import org.bigdata.zczw.adapter.ExamAnswerParseAdapter;
 import org.bigdata.zczw.entity.ExamPreModel;
 import org.bigdata.zczw.entity.ExamQuesModel;
 import org.bigdata.zczw.entity.ExamQuesModelBean;
+import org.bigdata.zczw.ui.WinToast;
 import org.bigdata.zczw.utils.AppManager;
 import org.bigdata.zczw.utils.JsonUtils;
 import org.bigdata.zczw.utils.ServerUtils;
 import org.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ExamAnswerParseActivity extends AppCompatActivity {
 
@@ -86,25 +89,59 @@ public class ExamAnswerParseActivity extends AppCompatActivity {
                 if (modelBean.getStatus() == 200){
                     examQuesList = (ArrayList<ExamQuesModel>) modelBean.getData();
 
-                    resultList = (ArrayList<Boolean>) getIntent().getSerializableExtra("result");
+                    for (ExamQuesModel exam : examQuesList){
+                        equalsAnswers(exam.getAnswers(),exam.getRightAnswers());
 
-
-                    resultABCList = (ArrayList<ArrayList<Integer>>)getIntent().getSerializableExtra("resultABC") ;
-
-
+                    }
 
                     ExamAnswerParseAdapter examAnswerParseAdapter = new ExamAnswerParseAdapter(ExamAnswerParseActivity.this,examQuesList,resultList,resultABCList);
                     listView.setAdapter(examAnswerParseAdapter);
 
+                }else if(modelBean.getStatus() == 444) {
+                    startActivity(new Intent(ExamAnswerParseActivity.this, LoginActivity.class));
+                    WinToast.toast(ExamAnswerParseActivity.this, "登录过期,请重新登录");
+                    finish();
                 }
+            }else {
+                WinToast.toast(ExamAnswerParseActivity.this, "数据异常，请稍候再试");
+
             }
 
         }
 
         @Override
         public void onFailure(HttpException e, String s) {
+            WinToast.toast(ExamAnswerParseActivity.this, e.getMessage());
         }
     };
+
+    //判断是否答对了题
+    private void equalsAnswers(String answers,ArrayList<Integer> rightAnswer){
+
+
+
+
+        String[] answerArr = answers.split(",");
+        ArrayList<Integer> a = new ArrayList<>();
+        for (String s:answerArr){
+            if (s.length()>0) a.add(Integer.valueOf(s).intValue());
+        }
+
+        boolean isEqual = Arrays.equals(a.toArray(),rightAnswer.toArray());
+
+        resultABCList.add(a);
+
+        //是否是正确答案
+        if (isEqual){
+            resultList.add(true);
+
+
+        }else{
+            resultList.add(false);
+        }
+
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

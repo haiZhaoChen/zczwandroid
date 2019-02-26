@@ -19,6 +19,7 @@ import org.bigdata.zczw.R;
 import org.bigdata.zczw.adapter.ExamPreAdapter;
 import org.bigdata.zczw.entity.ExamPreModel;
 import org.bigdata.zczw.entity.ExamPreModelBean;
+import org.bigdata.zczw.ui.WinToast;
 import org.bigdata.zczw.utils.AppManager;
 import org.bigdata.zczw.utils.JsonUtils;
 import org.bigdata.zczw.utils.SPUtil;
@@ -142,13 +143,21 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
                     adapter = new ExamPreAdapter(ExamListPageActivity.this,dataSource);
                     listView.setAdapter(adapter);
                 }
+                else if(modelBean.getStatus() == 444) {
+                    startActivity(new Intent(ExamListPageActivity.this, LoginActivity.class));
+                    WinToast.toast(ExamListPageActivity.this, "登录过期,请重新登录");
+                    finish();
+                }
+            }else {
+                WinToast.toast(ExamListPageActivity.this, "数据异常，请稍候再试");
+
             }
 
         }
 
         @Override
         public void onFailure(HttpException e, String s) {
-
+            WinToast.toast(ExamListPageActivity.this, e.getMessage());
         }
     };
 
