@@ -87,7 +87,7 @@ public class MsgTagActivity extends AppCompatActivity implements View.OnClickLis
 
                 Intent intent;
 
-                if (true){
+                if (isLuntan){
                     //如果包含张承论坛标签，进入选择时间页面
                     intent = new Intent(MsgTagActivity.this,MsgTimeTypeActivity.class);
 
