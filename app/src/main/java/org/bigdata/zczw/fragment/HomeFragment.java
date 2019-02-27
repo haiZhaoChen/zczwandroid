@@ -158,6 +158,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
     private TagAdapter<String> mAdapter;
     private int setTag;
     private String tagId;
+    private boolean isDiscuss = false;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -452,6 +453,8 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 mVals = new String[arrayList.size()+1];
                 mVals[0] = "全部";
                 for (int i = 0; i < arrayList.size(); i++) {
+                    MsgTag msgTag = arrayList.get(i);
+                    if (msgTag.getId() == 100002) continue;
                     mVals[i+1] = arrayList.get(i).getName();
                 }
 
@@ -743,20 +746,25 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
         final RadioGroup rgfeed = (RadioGroup) contentView.findViewById(R.id.rg_feed);
         LinearLayout linearLayout = (LinearLayout) contentView.findViewById(R.id.ll_black);
         tagFlowLayout = (TagFlowLayout) contentView.findViewById(R.id.id_flow_layout);
-        switch (str1){
-            case "":
-                rgfeed.check(R.id.rb_feed_all);
-                break;
-            case "1":
-                rgfeed.check(R.id.rb_feed_bm);
-                break;
-            case "2":
-                rgfeed.check(R.id.rb_feed_dx);
-                break;
-            case "4":
-                rgfeed.check(R.id.rb_feed_hot);
-                break;
+        if (isDiscuss){
+            rgfeed.check(R.id.rb_feed_discusion);
+        }else {
+            switch (str1){
+                case "":
+                    rgfeed.check(R.id.rb_feed_all);
+                    break;
+                case "1":
+                    rgfeed.check(R.id.rb_feed_bm);
+                    break;
+                case "2":
+                    rgfeed.check(R.id.rb_feed_dx);
+                    break;
+                case "4":
+                    rgfeed.check(R.id.rb_feed_hot);
+                    break;
+            }
         }
+
 
         if (mAdapter != null) {
             mAdapter.setSelectedList(setTag);
@@ -784,15 +792,29 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 switch (checkedId){
                     case R.id.rb_feed_all:
                         sameUnit = "";
+                        isDiscuss = false;
                         break;
                     case R.id.rb_feed_bm:
                         sameUnit = "1";
+                        isDiscuss = false;
                         break;
                     case R.id.rb_feed_dx:
                         sameUnit = "2";
+                        isDiscuss = false;
                         break;
                     case R.id.rb_feed_hot:
                         sameUnit = "3";
+                        isDiscuss = false;
+                        break;
+
+                    case R.id.rb_feed_discusion:
+                        sameUnit = "";
+                        isDiscuss = true;
+                        //标签选择为全部
+                        mAdapter.setSelectedList(0);
+                        tagFlowLayout.setAdapter(mAdapter);
+                        setTag = 0;
+                        tagId="";
                         break;
                 }
             }
@@ -808,6 +830,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 sameUnit = "";
                 setTag = 0;
                 tagId="";
+                isDiscuss = false;
             }
         });
 
@@ -820,9 +843,18 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                     setTag = index;
                 }
                 if (setTag  == 0) {
-                    tagId = "";
+                    if (isDiscuss){
+                        tagId = "100002";
+                    }else {
+                        tagId = "";
+                    }
+
                 }else {
                     tagId = arrayList.get(setTag-1).getId()+"";
+                }
+                String tagDis="";
+                if (isDiscuss){
+                    tagDis=arrayList.get(arrayList.size()-1)+"";
                 }
                 switch (sameUnit){
                     case "":

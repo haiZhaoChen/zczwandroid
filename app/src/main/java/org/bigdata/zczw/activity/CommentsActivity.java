@@ -410,6 +410,7 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
                         rvComments.setAdapter(commentAdapter);
 
                         commentAdapter.setOnLongListener(onLongListener);
+                        commentAdapter.setOnCheckPraiseClickListener(onCheckPraiseClickListener);
 
                     } catch (JSONException e) {
                         e.printStackTrace();

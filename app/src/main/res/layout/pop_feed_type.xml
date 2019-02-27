@@ -50,6 +50,12 @@
                     android:drawableTop="@drawable/icon_feed_hot"
                     style="@style/feed_type_btn"/>
 
+                <RadioButton
+                    android:id="@+id/rb_feed_discusion"
+                    android:text="张承论坛"
+                    android:drawableTop="@drawable/icon_select_discuss"
+                    style="@style/feed_type_btn"/>
+
             </RadioGroup>
 
         </LinearLayout>
