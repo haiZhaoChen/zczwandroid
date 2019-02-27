@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -27,8 +29,10 @@ import org.bigdata.zczw.activity.PersonalActivity;
 import org.bigdata.zczw.activity.UserInfoActivity;
 import org.bigdata.zczw.entity.Comment;
 import org.bigdata.zczw.entity.Pai;
+import org.bigdata.zczw.entity.Record;
 import org.bigdata.zczw.utils.DateUtils;
 import org.bigdata.zczw.utils.SPUtil;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,14 +82,13 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return new ComViewHolder2(view);
         }
 
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
         if (viewHolder instanceof ComViewHolder1) {
-            ComViewHolder1 holder = (ComViewHolder1) viewHolder;
+            final  ComViewHolder1 holder = (ComViewHolder1) viewHolder;
 
             if (!TextUtils.isEmpty(commentList.get(position).getUnitsName())) {
                 holder.name.setText(commentList.get(position).getUserName()+"-"+commentList.get(position).getUnitsName()+"-"+commentList.get(position).getJobsName());
@@ -105,7 +108,7 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.img.setImageResource(R.drawable.de_default_portrait);
             }
 
-            Comment comment = commentList.get(position);
+            final Comment comment = commentList.get(position);
             ArrayList<String> numList = new ArrayList<>();
             if (!TextUtils.isEmpty(comment.getRangeStr())) {
                 String rangeStr = comment.getRangeStr();
@@ -131,11 +134,24 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.content.setText(commentList.get(position).getCommentsContent());
             }
 
+
             if (comment.getListComentReplyInfo()!=null && comment.getListComentReplyInfo().size()>0) {
                 holder.line.setVisibility(View.VISIBLE);
             }else {
                 holder.line.setVisibility(View.GONE);
             }
+
+            if (comment.getPraise()==0){
+                holder.commentPraiseImg.setImageResource(R.drawable.ic_praise_normal);
+                holder.commentPraiseText.setTextColor(context.getResources().getColor(R.color.barcolor2));
+                holder.commentPraiseText.setText(comment.getPraiseNum()+"");
+            }else {
+                holder.commentPraiseImg.setImageResource(R.drawable.ic_praise_select);
+                holder.commentPraiseText.setTextColor(context.getResources().getColor(R.color.barcolor1));
+                holder.commentPraiseText.setText(comment.getPraiseNum()+"");
+            }
+
+
 
             holder.img.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,6 +192,47 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
+            holder.commentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onLongListener != null) {
+                        onLongListener.onContentClick(1 , v , commentList.get(position));
+                    }
+                }
+            });
+
+            holder.commentPraise.setOnClickListener(new  View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+
+                    if (comment.getPraise()==0){
+                        if (onCheckPraiseClickListener != null){
+                            holder.commentPraiseImg.setImageResource(R.drawable.ic_praise_select);
+                            holder.commentPraiseText.setTextColor(context.getResources().getColor(R.color.barcolor1));
+                            if (comment.getPraiseNum() < 0) {
+                                holder.commentPraiseText.setText("1");
+                            }else{
+                                holder.commentPraiseText.setText(comment.getPraiseNum() + 1 +"");
+                            }
+                            onCheckPraiseClickListener.onPraiseClick("1",comment);
+                        }
+
+                    }else {
+                        if (onCheckPraiseClickListener != null){
+                            holder.commentPraiseImg.setImageResource(R.drawable.ic_praise_normal);
+                            holder.commentPraiseText.setTextColor(context.getResources().getColor(R.color.barcolor2));
+                            if (comment.getPraiseNum() > 0) {
+                                holder.commentPraiseText.setText(comment.getPraiseNum() - 1 +"");
+                            }else{
+                                holder.commentPraiseText.setText("0");
+                            }
+                            onCheckPraiseClickListener.onPraiseClick("2",comment);
+                        }
+                    }
+                }
+            });
+
+
             holder.itemView.setTag(position);
         } else {
             ComViewHolder2 holder = (ComViewHolder2) viewHolder;
@@ -209,6 +266,33 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
+
+    public void refreshPraiseCount(String messageId, int num) {
+        if (commentList != null && !commentList.isEmpty()) {
+            for (int i = 0; i < commentList.size(); i++) {
+                if (commentList.get(i).getCommentsId().equals(messageId)) {
+                    Comment record = commentList.get(i);
+                    int old = record.getPraiseNum();
+                    if(old>num){
+                        record.setPraise(0);
+                        Toast.makeText(context,"取消点赞",Toast.LENGTH_SHORT).show();
+                    }else{
+                        record.setPraise(1);
+                        Toast.makeText(context,"点赞成功",Toast.LENGTH_SHORT).show();
+                    }
+                    if (num < 0) {
+                        record.setPraiseNum(0);
+                    }else{
+                        record.setPraiseNum(num);
+                    }
+                    commentList.set(i, record);
+                    this.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return commentList==null?0:commentList.size();
@@ -220,6 +304,10 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ImageView img;
         private RelativeLayout item;
         private View line;
+        private LinearLayout commentPraise;
+        private RelativeLayout commentView;
+        private ImageView commentPraiseImg;
+        private TextView commentPraiseText;
 
         public ComViewHolder1(View view) {
             super(view);
@@ -230,6 +318,10 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             img = (ImageView) view.findViewById(R.id.comment_msg_userProfile);
             item = (RelativeLayout) view.findViewById(R.id.item_com);
             line =  view.findViewById(R.id.line_com_item);
+            commentPraise = (LinearLayout) view.findViewById(R.id.comment_praise);
+            commentPraiseImg = (ImageView) view.findViewById(R.id.comment_img_praise);
+            commentPraiseText = (TextView) view.findViewById(R.id.comment_txt_praiseNum);
+            commentView = (RelativeLayout)view.findViewById(R.id.comment_view);
         }
     }
 
@@ -251,5 +343,13 @@ public class ComAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface OnLongListener {
         void onContentClick(int type ,View v , Comment com);
+    }
+
+    private OnCheckPraiseClickListener onCheckPraiseClickListener;
+    public void setOnCheckPraiseClickListener(OnCheckPraiseClickListener onCheckPraiseClickListener){
+        this.onCheckPraiseClickListener = onCheckPraiseClickListener;
+    }
+    public interface OnCheckPraiseClickListener {
+        void onPraiseClick(String type, Comment com);
     }
 }

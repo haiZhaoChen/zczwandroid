@@ -116,6 +116,7 @@ public class HomeListAdapter extends BaseAdapter{
             viewHolder.top = (TextView) convertView.findViewById(R.id.txt_first_room_item);
             viewHolder.more = (ImageView) convertView.findViewById(R.id.more);
             viewHolder.type = (ImageView) convertView.findViewById(R.id.img_feed_type);
+            viewHolder.feedProfession = (ImageView) convertView.findViewById(R.id.feed_img_profession);
 
             viewHolder.praise = (ImageView) convertView.findViewById(R.id.img_praise);
 
@@ -195,6 +196,33 @@ public class HomeListAdapter extends BaseAdapter{
             viewHolder.top.setVisibility(View.VISIBLE);
         }else {
             viewHolder.top.setVisibility(View.GONE);
+        }
+
+        if (record.getIncreaseType()==0){
+            viewHolder.feedProfession.setVisibility(View.GONE);
+        }else {
+            viewHolder.feedProfession.setVisibility(View.VISIBLE);
+            viewHolder.top.setVisibility(View.GONE);
+
+            switch (record.getIncreaseType()){//1:公共; 2:收费; 3:养护;4:机电;5:信调;
+                case 1:
+                    viewHolder.feedProfession.setImageResource(R.drawable.feed_gonggong);
+                    break;
+                case 2:
+                    viewHolder.feedProfession.setImageResource(R.drawable.feed_shoufei);
+                    break;
+                case 3:
+                    viewHolder.feedProfession.setImageResource(R.drawable.feed_yanghu);
+                    break;
+                case 4:
+                    viewHolder.feedProfession.setImageResource(R.drawable.feed_jidian);
+                    break;
+                case 5:
+                    viewHolder.feedProfession.setImageResource(R.drawable.feed_xindiao);
+                    break;
+            }
+
+
         }
 
         viewHolder.relativeInfo.setOnClickListener(new View.OnClickListener() {
@@ -606,7 +634,7 @@ public class HomeListAdapter extends BaseAdapter{
         private LinearLayout btn_comment,btn_prasie,llShare;
         private TextView commentNum,praiseNum,collectNum,readNum,top;
         private ImageView praise;
-        private ImageView save,type;
+        private ImageView save,type,feedProfession;
 
         private TextView videoSizeRecord,videoLenRecord;
         private AlignTextView txtRecord;

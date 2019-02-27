@@ -53,6 +53,9 @@ public class CommentFragment extends Fragment {
     private PopupWindow popupWindow;
     private View contentView;
     private Comment comment1;
+    //评论id
+    private String  commentId;
+    private int prasieCount;
 
     public CommentFragment() {
         // Required empty public constructor
@@ -135,6 +138,7 @@ public class CommentFragment extends Fragment {
                         listView.setAdapter(commentsAdapter);
 
                         commentsAdapter.setOnLongListener(onLongListener);
+                        commentsAdapter.setOnCheckPraiseClickListener(onCheckPraiseClickListener);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -168,6 +172,38 @@ public class CommentFragment extends Fragment {
             intent.putExtra("com",com);
             startActivity(intent);
 
+        }
+    };
+
+    private ComAdapter.OnCheckPraiseClickListener onCheckPraiseClickListener = new ComAdapter.OnCheckPraiseClickListener() {
+        @Override
+        public void onPraiseClick(String type, Comment com) {
+            commentId = com.getCommentsId();
+            if (type.equals("1")){
+                prasieCount = com.getPraiseNum()+1;
+            }else {
+                prasieCount = com.getPraiseNum()-1;
+            }
+
+            ServerUtils.sendCommentPraise(com.getCommentsId()+"",type,commentPraiseCallBack);
+        }
+    };
+
+    private RequestCallBack<String> commentPraiseCallBack = new RequestCallBack<String>() {
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+
+            String json = responseInfo.result;
+            DemoApiJSON demoApiJSON = JsonUtils.jsonToPojo(json, DemoApiJSON.class);
+            if(demoApiJSON.getStatus() != 500){
+                commentsAdapter.refreshPraiseCount(commentId, prasieCount);
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+
+            System.out.println(e.getMessage());
         }
     };
 

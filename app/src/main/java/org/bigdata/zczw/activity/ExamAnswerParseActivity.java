@@ -62,6 +62,8 @@ public class ExamAnswerParseActivity extends AppCompatActivity {
         examPreModel = (ExamPreModel) getIntent().getSerializableExtra("exam");
         if (examPreModel.isMeJoin()){
             ServerUtils.getExamPageQues(examPreModel.getId()+"",callback);
+            resultABCList = new ArrayList<ArrayList<Integer>>();
+            resultList = new ArrayList<Boolean>();
 
         }else {
             resultList = (ArrayList<Boolean>) getIntent().getSerializableExtra("result");

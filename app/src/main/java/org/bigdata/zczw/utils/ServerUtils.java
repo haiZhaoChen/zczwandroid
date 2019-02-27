@@ -1216,6 +1216,18 @@ public class ServerUtils {
         params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
         httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
     }
+    /**
+     * 阅读加分
+     */
+    public static void msgRead(String messageId,RequestCallBack<String> requestCallBack) {
+        String url = DemoApi.HOST + DemoApi.MSG_READ;
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.configCurrentHttpCacheExpiry(0); // 设置缓存0秒,0秒内直接返回上次成功请求的结果。
+        RequestParams params = new RequestParams();
+        params.addQueryStringParameter("messageId",messageId);
+        params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
+        httpUtils.send(HttpRequest.HttpMethod.POST, url,params, requestCallBack);
+    }
 
 
     /**
@@ -1333,6 +1345,21 @@ public class ServerUtils {
         params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
         httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
     }
+
+    /**
+     * 评论点赞
+     */
+    public static void sendCommentPraise(String commentId ,String type,RequestCallBack<String> requestCallBack){
+        String url = DemoApi.HOST + DemoApi.COMMENT_PRAISE ;
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.configCurrentHttpCacheExpiry(0);
+        RequestParams params = new RequestParams();
+        params.addQueryStringParameter("commentId", commentId);
+        params.addQueryStringParameter("type", type);
+        params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
+        httpUtils.send(HttpRequest.HttpMethod.POST, url,params, requestCallBack);
+    }
+
 
 
 }

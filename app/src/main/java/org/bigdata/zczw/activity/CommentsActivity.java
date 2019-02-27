@@ -93,6 +93,10 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<Comment> comments;
     private HashMap<String,String> dataMap = new HashMap<>();
 
+    //评论id
+    private String  commentId;
+    private int prasieCount;
+
     //保存评论的内容
     private HashMap<String,String> commentContentMap = new HashMap<>();
 
@@ -149,6 +153,39 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
+
+    private ComAdapter.OnCheckPraiseClickListener onCheckPraiseClickListener = new ComAdapter.OnCheckPraiseClickListener() {
+        @Override
+        public void onPraiseClick(String type, Comment com) {
+            commentId = com.getCommentsId();
+            if (type.equals("1")){
+                prasieCount = com.getPraiseNum()+1;
+            }else {
+                prasieCount = com.getPraiseNum()-1;
+            }
+
+            ServerUtils.sendCommentPraise(com.getCommentsId()+"",type,commentPraiseCallBack);
+        }
+    };
+
+    private RequestCallBack<String> commentPraiseCallBack = new RequestCallBack<String>() {
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+
+            String json = responseInfo.result;
+            DemoApiJSON demoApiJSON = JsonUtils.jsonToPojo(json, DemoApiJSON.class);
+            if(demoApiJSON.getStatus() != 500){
+                commentAdapter.refreshPraiseCount(commentId, prasieCount);
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+
+            System.out.println(e.getMessage());
+        }
+    };
 
 
     @Override

@@ -109,7 +109,6 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
         getIntent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         if (resultCode == 10001){
-            System.out.println("这里高啊惊世毒妃艺术硕士是东西易面地艺术大师地爱上了打飞机爱上了打飞机");
             ServerUtils.getExamPageList(callback);
         }
 

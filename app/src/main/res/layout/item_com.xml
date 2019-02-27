@@ -8,12 +8,39 @@
 
 
     <RelativeLayout
+        android:id="@+id/comment_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
+
+        <LinearLayout
+            android:id="@+id/comment_praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dp"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/comment_img_praise"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_praise_normal"/>
+            <TextView
+                android:id="@+id/comment_txt_praiseNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:textColor="#999999"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="3dp"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/txt_reply"
@@ -23,7 +50,9 @@
             android:textColor="#2e2d2e"
             android:textSize="16sp"
             android:layout_margin="4dp"
+            android:visibility="gone"
             android:layout_alignParentRight="true"/>
+
 
         <ImageView
             android:id="@+id/comment_msg_userProfile"

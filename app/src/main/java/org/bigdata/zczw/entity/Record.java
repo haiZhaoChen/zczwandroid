@@ -61,6 +61,25 @@ public class Record implements Serializable{
     private List<MsgTag> tags;
     private List<FileBean> files;
 
+    private Integer read;
+    private Integer increaseType;
+
+    public Integer getIncreaseType() {
+        return increaseType;
+    }
+
+    public void setIncreaseType(Integer increaseType) {
+        this.increaseType = increaseType;
+    }
+
+    public Integer getRead() {
+        return read;
+    }
+
+    public void setRead(Integer read) {
+        this.read = read;
+    }
+
     public Record() {
     }
 

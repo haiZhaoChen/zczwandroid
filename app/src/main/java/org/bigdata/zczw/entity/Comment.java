@@ -38,7 +38,24 @@ public class Comment implements Serializable{
     private String buserName;
     private String unitsName;
     private String jobsName;
+    private int praise;
+    private int praiseNum;
 
+    public int getPraise() {
+        return praise;
+    }
+
+    public void setPraise(int praise) {
+        this.praise = praise;
+    }
+
+    public int getPraiseNum() {
+        return praiseNum;
+    }
+
+    public void setPraiseNum(int praiseNum) {
+        this.praiseNum = praiseNum;
+    }
 
     private List<Comment> listComentReplyInfo;
 

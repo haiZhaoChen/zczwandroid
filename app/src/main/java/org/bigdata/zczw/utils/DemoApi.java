@@ -114,6 +114,9 @@ public class DemoApi {
     public static  String ATTEND_LIST_DATE = "attendanceV2/showStatisticsGroupByDate";//按日期查看统计信息
     public static  String ATTEND_LIST = "attendanceV2/showStatisticsGroupByUser";//按月查看统计信息
 
+    public static  String MSG_READ = "/message/readMessage";//阅读加分
+    public static  String COMMENT_PRAISE = "/commentPraise/praiseV2";//阅读加分
+
     public static  String EXAM_LIST = "/examPaper/my";//考试列表
     public static  String EXAM_INFO = "/examPaper/joinExam";//考试详情
     public static  String EXAM_COMPOSE = "/examPaper/answer";//提交答案

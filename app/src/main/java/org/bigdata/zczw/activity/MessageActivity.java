@@ -60,6 +60,7 @@ import org.bigdata.zczw.entity.Author;
 import org.bigdata.zczw.entity.Bean;
 import org.bigdata.zczw.entity.DemoApiJSON;
 import org.bigdata.zczw.entity.FileBean;
+import org.bigdata.zczw.entity.MsgTag;
 import org.bigdata.zczw.entity.Pictures;
 import org.bigdata.zczw.entity.RecoedBean;
 import org.bigdata.zczw.entity.Record;
@@ -139,6 +140,8 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     private int readTime;
     private RadioButton readBtn;
 
+    private boolean isShowReadBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +208,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
         //找到控件
         readBtn = (RadioButton) findViewById(R.id.fab_btn);
+        readBtn.setClickable(false);
         //设置监听
         readBtn.setOnClickListener(this);
 
@@ -239,12 +243,11 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             public void onTick(long millisUntilFinished) {
                 readBtn.setClickable(false);
                 readBtn.setText(millisUntilFinished/1000+"");
-
             }
 
             @Override
             public void onFinish() {
-                readBtn.setText("已读");
+                readBtn.setText("阅读");
                 readBtn.setClickable(true);
 
             }
@@ -280,10 +283,29 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 record = bean.getData();
 
                 //计算出阅读时间
-                readTime = record.getContent().length()/20;
-                if (readTime<30) readTime=30;
-                if (readTime>=120) readTime=120;
-                startTimer();
+                //是否展示阅读
+                isShowReadBtn = false;
+                for (MsgTag tag : record.getTags()){
+                    if (tag.getId()>100001){
+                        isShowReadBtn = true;
+                        break;
+                    }
+                }
+                if (isShowReadBtn){
+                    readBtn.setVisibility(View.VISIBLE);
+                    if (record.getRead()==0){
+                        readTime = record.getContent().length() / 20;
+                        if (readTime < 30) readTime = 30;
+                        if (readTime >= 120) readTime = 120;
+                        startTimer();
+                    }else {
+                        readBtn.setText("已读");
+                        readBtn.setChecked(true);
+                    }
+                }else {
+                    readBtn.setVisibility(View.GONE);
+                }
+
 
                 if (record.getFiles()!=null && record.getFiles().size()>0) {
                     listView.setVisibility(View.VISIBLE);
@@ -723,9 +745,10 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.fab_btn:
-                //加分
-
-
+                //已读加分
+                if (record.getRead()==0){
+                    ServerUtils.msgRead(record.getMessageId()+"",msgReadCallBack);
+                }
                 break;
         }
     }
@@ -968,6 +991,26 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         });
         builder.create().show();
     }
+
+    //阅读加分接口回调
+    private RequestCallBack<String> msgReadCallBack= new RequestCallBack<String>() {
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            String json = responseInfo.result;
+            DemoApiJSON demoApiJSON = JsonUtils.jsonToPojo(json, DemoApiJSON.class);
+
+            if (Integer.valueOf(demoApiJSON.getData().toString()).intValue()==1){
+                readBtn.setText("已读");
+                Toast.makeText(MessageActivity.this,"阅读成功",Toast.LENGTH_SHORT).show();
+                record.setRead(1);
+            }
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+
+        }
+    };
 
     private RequestCallBack<String> messageDelete = new RequestCallBack<String>() {
         @Override
