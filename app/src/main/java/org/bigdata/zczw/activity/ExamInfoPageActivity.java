@@ -237,7 +237,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                 //请求提交答案接口
                 answers.add("10");
                 //本地比较答案与所选是否一致
-                equalsAnswers();
+//                equalsAnswers();
 
                 StringBuffer stringBuffer = new StringBuffer();
                 for (String s : answers){
