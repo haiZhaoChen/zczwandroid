@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -140,8 +141,11 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 11){
-                itemAdapter.notifyDataSetChanged();
-                SPUtil.put(getContext(), "firstinit", true);
+                if (itemAdapter != null){
+                    itemAdapter.notifyDataSetChanged();
+                    SPUtil.put(getContext(), "firstinit", true);
+                }
+
             }else if (msg.what == 101) {
                 pListView.onRefreshComplete();
             }
@@ -217,6 +221,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
         contentView = LayoutInflater.from(getContext()).inflate(R.layout.pop_feed_type, null);
 
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
         ServerUtils.getThemeFlag(flag);
         //初始获取动态数据
 
@@ -450,12 +455,22 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
             MsgTags bean = JsonUtils.jsonToPojo(json,MsgTags.class);
             if (bean != null && bean.getStatus() == 200 && bean.getData()!=null && bean.getData().size()>0) {
                 arrayList = (ArrayList<MsgTag>) bean.getData();
-                mVals = new String[arrayList.size()+1];
-                mVals[0] = "全部";
+
+                ArrayList<String> tempArr = new ArrayList<>();
                 for (int i = 0; i < arrayList.size(); i++) {
                     MsgTag msgTag = arrayList.get(i);
-                    if (msgTag.getId() == 100002) continue;
-                    mVals[i+1] = arrayList.get(i).getName();
+                    if (msgTag.getId() == 100002){
+                        continue;
+                    }
+                    tempArr.add(arrayList.get(i).getName());
+                }
+
+                mVals = new String[tempArr.size()+1];
+                mVals[0] = "全部";
+                int j = 1;
+                for (String s : tempArr){
+                    mVals[j] = s;
+                    j++;
                 }
 
                 mAdapter = new TagAdapter<String>(mVals) {

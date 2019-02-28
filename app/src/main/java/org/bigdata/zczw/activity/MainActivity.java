@@ -459,7 +459,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      */
     private void checkUpdate() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try {
