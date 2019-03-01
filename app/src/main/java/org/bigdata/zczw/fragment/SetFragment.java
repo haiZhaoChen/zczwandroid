@@ -179,8 +179,18 @@ public class SetFragment extends Fragment implements OnClickListener{
                 status = bean.getData();
                 if (status.isNeedShowStat()) {
                     check.setVisibility(View.VISIBLE);
+
                 }else {
                     check.setVisibility(View.GONE);
+
+                }
+                if (status.isUnitAccount()){
+                    imgMsg.setVisibility(View.GONE);
+                    test.setVisibility(View.GONE);
+
+                }else {
+                    imgMsg.setVisibility(View.VISIBLE);
+                    test.setVisibility(View.VISIBLE);
                 }
             }
 
