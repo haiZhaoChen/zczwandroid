@@ -800,6 +800,12 @@ public class AddMessageActivity extends AppCompatActivity
         postFormBuilder.addParams("forwardMessageId","");
         postFormBuilder.addParams("topicRangeStr",topicRangeStr);
         postFormBuilder.addParams("tagIds",tagIds);
+        if (increaseTime!=null){
+            postFormBuilder.addParams("increaseTime",increaseTime);
+        }
+        if (increaseType != null){
+            postFormBuilder.addParams("increaseType",increaseType);
+        }
         if (type.equals("0")) {
             postFormBuilder.addParams("userIds","");
         }else {
@@ -982,6 +988,12 @@ public class AddMessageActivity extends AppCompatActivity
             postFormBuilder.addParams("forwardMessageId","");
             postFormBuilder.addParams("topicRangeStr",topicRangeStr);
             postFormBuilder.addParams("tagIds",tagIds);
+            if (increaseTime!=null){
+                postFormBuilder.addParams("increaseTime",increaseTime);
+            }
+            if (increaseType != null){
+                postFormBuilder.addParams("increaseType",increaseType);
+            }
             if (type.equals("0")) {
                 postFormBuilder.addParams("userIds","");
             }else {
