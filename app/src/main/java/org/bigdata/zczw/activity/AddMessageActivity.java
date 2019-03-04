@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
@@ -54,6 +55,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.vincent.videocompressor.VideoCompress;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
@@ -89,6 +91,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -117,6 +120,10 @@ public class AddMessageActivity extends AppCompatActivity
         implements View.OnClickListener,BDLocationListener, TextWatcher, AdapterView.OnItemClickListener {
 
     private boolean isVideo = false;
+    //视频转码后存放地址
+    private String outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+//    private String inputPath;
+    private String outVideoPath;
 
     public final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
@@ -165,6 +172,8 @@ public class AddMessageActivity extends AppCompatActivity
     private PostFormBuilder postFormBuilder;
 
     private boolean isFormal;
+    private int s;
+    private File videoThumbnail;
 
     private Handler handlerTime = new Handler(){
         @Override
@@ -306,6 +315,7 @@ public class AddMessageActivity extends AppCompatActivity
                 videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 100, 160, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                 videoContent.setVisibility(View.VISIBLE);
                 imgVideo.setImageBitmap(videoPhoto);
+                videoThumbnail = saveBitmap(videoPhoto);
                 play.setImageResource(android.R.drawable.ic_media_play);
                 messageContext.setText(edit);
                 messageContext.setSelection(edit.length());
@@ -584,10 +594,10 @@ public class AddMessageActivity extends AppCompatActivity
         if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 videoPhoto = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.MINI_KIND);
-
                 videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 100, 160, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                 videoContent.setVisibility(View.VISIBLE);
                 imgVideo.setImageBitmap(videoPhoto);
+                videoThumbnail = saveBitmap(videoPhoto);
                 play.setImageResource(android.R.drawable.ic_media_play);
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -611,14 +621,15 @@ public class AddMessageActivity extends AppCompatActivity
             cursor.close();
 
             double fileSize = FileSizeUtil.getFileOrFilesSize(videoPath, 3);
-            if (fileSize <40) {
+            if (fileSize <80) {
                 videoPhoto = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.MINI_KIND);
                 videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 100, 160, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                 videoContent.setVisibility(View.VISIBLE);
                 imgVideo.setImageBitmap(videoPhoto);
+                videoThumbnail = saveBitmap(videoPhoto);
                 play.setImageResource(android.R.drawable.ic_media_play);
             }else{
-                Toast.makeText(AddMessageActivity.this,"目标文件为"+fileSize+"Mb,超过默认40Mb限制，不支持上传",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddMessageActivity.this,"目标文件为"+fileSize+"Mb,超过默认80Mb限制，不支持上传",Toast.LENGTH_LONG).show();
                 isVideo = false;
             }
         }
@@ -630,6 +641,7 @@ public class AddMessageActivity extends AppCompatActivity
                 videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 100, 160, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                 videoContent.setVisibility(View.VISIBLE);
                 imgVideo.setImageBitmap(videoPhoto);
+                videoThumbnail = saveBitmap(videoPhoto);
                 play.setImageResource(android.R.drawable.ic_media_play);
             }else {
                 isVideo = false;
@@ -651,6 +663,7 @@ public class AddMessageActivity extends AppCompatActivity
                 videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 100, 160, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                 videoContent.setVisibility(View.VISIBLE);
                 imgVideo.setImageBitmap(videoPhoto);
+                videoThumbnail = saveBitmap(videoPhoto);
                 play.setImageResource(android.R.drawable.ic_media_play);
             }else if(resultCode == Activity.RESULT_CANCELED){
                 Toast.makeText(this,"用户取消录制",Toast.LENGTH_SHORT).show();
@@ -1191,12 +1204,18 @@ public class AddMessageActivity extends AppCompatActivity
                 Utils.showToast(AddMessageActivity.this,"发布成功");
                 App.PUBLISH_CONTENT = null;
                 messageContext.setText("");
+
+                if (videoThumbnail != null) {
+                    videoThumbnail.delete();
+                }
                 finish();
             }else {
                 Utils.showToast(AddMessageActivity.this,"发布失败");
             }
         }
     };
+
+
 
     private void sendVideoMessage() {
 
@@ -1206,218 +1225,373 @@ public class AddMessageActivity extends AppCompatActivity
             return;
         }
 
-
-        new Thread(new Runnable() {
+        //转码
+        outVideoPath = outputDir + File.separator + "out_VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+        VideoCompress.compressVideoLow(videoPath, outVideoPath, new VideoCompress.CompressListener() {
             @Override
-            public void run() {
-                HttpURLConnection connection = null;
-                DataOutputStream outputStream = null;
-                ByteArrayInputStream inputStream = null;
+            public void onStart() {
+                mypDialog.setMessage("动态视频正在压缩转码中...");
 
-                String  lineEnd = "\r\n";
-                String twoHyphens = "--";
-                String boundary = "*****";
-                double dfileSize = FileSizeUtil.getFileOrFilesSize(videoPath, 3);
-                int fileSize= (int) (dfileSize+1);
-
-                Map<String, Object> params = new HashMap<String, Object>();
-
-                int fileLen = 10;
-                android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
-
-                try {
-                    mmr.setDataSource(videoPath);
-                    String duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
-                    fileLen = Integer.valueOf(duration);
-                    fileLen = fileLen/1000+1;
-                } catch (Exception ex) {
-                    Log.e("Exception", "MediaMetadataRetriever exception " + ex);
-                } finally {
-                    mmr.release();
-                }
-                params.put("content", EmojiFilter.filterEmoji(messageContext.getText().toString()));
-                params.put("latitude", latitude);
-                params.put("longitude", longitude);
-                params.put("location", location);
-                params.put("fileLen", fileLen);
-                params.put("fileSize",fileSize);
-                params.put("publicScope", publicScope);
-                params.put("forwardMessageId", "");
-                params.put("topicRangeStr", topicRangeStr);
-                params.put("tagIds", tagIds);
-                if (increaseTime!=null){
-                    params.put("increaseTime",increaseTime);
-                }
-                if (increaseType != null){
-                    params.put("increaseType",increaseType);
-                }
-
-                if (type.equals("0")) {
-                    params.put("userIds", "");
-                }else {
-                    params.put("userIds", userIds);
-                }
-
-                byte[] buffer;
-
-                try {
-                    URL url = new URL(DemoApi.VIDEO_URL);
-                    connection = (HttpURLConnection) url.openConnection();
-
-                    // Allow Inputs &amp; Outputs.
-                    connection.setDoInput(true);
-                    connection.setDoOutput(true);
-                    connection.setUseCaches(false);
-                    connection.setConnectTimeout(5000);
-
-                    // Set HTTP method to POST.
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Connection", "Keep-Alive");
-                    connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-                    connection.setRequestProperty("Cookie", "zw_token=" + App.ZCZW_TOKEN);
-
-                    StringBuilder sb = new StringBuilder();
-                    // 上传的表单参数部分，格式请参考文章
-                    for (Map.Entry<String, Object> entry : params.entrySet()) {// 构建表单字段内容
-                        sb.append(twoHyphens);
-                        sb.append(boundary);
-                        sb.append(lineEnd);
-                        sb.append("Content-Disposition: form-data; name=\"" + entry.getKey() + "\"" + lineEnd + lineEnd);
-                        sb.append(entry.getValue());
-                        sb.append(lineEnd);
-                    }
-
-                    outputStream = new DataOutputStream(connection
-                            .getOutputStream());
-                    // 发送文字信息
-                    outputStream.write(sb.toString().getBytes());
-
-                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                    outputStream.writeBytes("Content-Disposition: form-data; name=\"videos\";filename=\"" + videoPath + "\"" + lineEnd);
-                    outputStream.writeBytes(lineEnd);
-                    FileInputStream fis = new FileInputStream(videoPath);
-                    byte buf[]=new byte[1024*10];
-                    int size = fis.read(buf);
-                    while(size>0){
-                        outputStream.write(buf, 0, size);
-                        size = fis.read(buf);
-                    }
-                    outputStream.writeBytes(lineEnd);
-
-                    fis.close();
-
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String imgPath = "IMG_"+ timeStamp + ".jpeg";
-                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                    outputStream.writeBytes("Content-Disposition: form-data; name=\"pictures\";filename=\"" + imgPath + "\"" + lineEnd);
-                    outputStream.writeBytes(lineEnd);
-
-                    ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
-                    // photo.compress(Bitmap.CompressFormat.PNG, 30,
-                    // photoStream);
-                    videoPhoto.compress(Bitmap.CompressFormat.JPEG, 100, photoStream);
-
-                    inputStream = new ByteArrayInputStream(photoStream.toByteArray());
-
-                    size = inputStream.read(buf);
-                    while(size>0){
-                        outputStream.write(buf, 0, size);
-                        size = inputStream.read(buf);
-                    }
-                    outputStream.writeBytes(lineEnd);
-
-                    inputStream.close();
-
-                    outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                    connection.connect();
-                    int serverResponseCode = connection.getResponseCode();
-                    outputStream.flush();
-                    outputStream.close();
-                    if (200 == serverResponseCode) {
-                        InputStream is = connection.getInputStream();
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        buffer = new byte[1024];
-                        int len = 0;
-                        while ((len = is.read(buffer)) != -1) {
-
-                            baos.write(buffer, 0, len);
-                        }
-
-                        String returnString = baos.toString();
-                        baos.close();
-                        is.close();
-                        JSONObject returnInfo = null;
-                        try {
-                            // 转换成json数据
-                            returnInfo = new JSONObject(returnString);
-                        } catch (JSONException e) {
-                            handler.post(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "发布动态失败，服务器异常", Toast.LENGTH_SHORT).show();
-                                    Log.e("发布动态", "服务器异常，返回不是json");
-                                }
-                            });
-                        }
-
-                        Log.d("returnValue", returnString);
-                        if (returnInfo != null) {
-
-                            int info = returnInfo.getInt("status");
-                            if (200 == info) {
-                                // Activity关闭前先关闭进度条，不然会内存泄露
-                                // mypDialog.dismiss();
-                                Log.d("AddDongtaiActivity_v3", "动态创建成功");
-                                Intent intent = new Intent();
-                                messageContext.setText("");
-                                AddMessageActivity.this.finish();
-
-                            } else if (400 == info) {
-
-                                handler.post(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        Log.d("AddDongtaiActivity_v3", "动态创建失败");
-                                        // mypDialog.dismiss();
-                                        Toast.makeText(AddMessageActivity.this, "动态创建失败", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }
-                    } else if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
-
-                        handler.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                Toast.makeText(AddMessageActivity.this, ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
-                                // Log.d(TAG, "创建动态失败，网络连接失败");
-                            }
-                        });
-                    } else {
-                        handler.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                Toast.makeText(AddMessageActivity.this, "创建动态失败，服务器异常", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    WinToast.makeText(AddMessageActivity.this, "视频读取失败，请重新上传。");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }finally {
-                    mypDialog.dismiss();
-                }
             }
-        }).start();
+
+            @Override
+            public void onSuccess() {
+                //这里发送转码后视频
+                mypDialog.setMessage("视频转码成功，正在发布...");
+                sendVideoFile(outVideoPath);
+            }
+
+            @Override
+            public void onFail() {
+
+                mypDialog.setMessage("视频转码失败，原动态发布中...");
+                //失败就会发送原视频，并删除目标转码文件
+                sendVideoFile(videoPath);
+                delete(outVideoPath);
+            }
+
+            @Override
+            public void onProgress(float percent) {
+
+            }
+        });
+
+
     }
+
+    /** 删除文件，可以是文件或文件夹
+     * @param delFile 要删除的文件夹或文件名
+     * @return 删除成功返回true，否则返回false
+     */
+    private void delete(String delFile) {
+        File file = new File(delFile);
+        if (!file.exists()) {
+
+        } else {
+            if (file.isFile()){
+                deleteSingleFile(delFile);
+            }
+
+        }
+    }
+
+    /** 删除单个文件
+     * @param filePath$Name 要删除的文件的文件名
+     * @return 单个文件删除成功返回true，否则返回false
+     */
+    private boolean deleteSingleFile(String filePath$Name) {
+        File file = new File(filePath$Name);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                Log.e("--Method--", "Copy_Delete.deleteSingleFile: 删除单个文件" + filePath$Name + "成功！");
+                return true;
+            } else {
+//                Toast.makeText(getApplicationContext(), "删除单个文件" + filePath$Name + "失败！", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else {
+//            Toast.makeText(getApplicationContext(), "删除单个文件失败：" + filePath$Name + "不存在！", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+
+    public File saveBitmap(Bitmap bm) {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imgPath = "IMG_"+ timeStamp + ".png";
+        File f = new File("/mnt/sdcard/zczw", imgPath);
+        if (f.exists()) {
+            f.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100 , out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
+
+    private void sendVideoFile(String videoFilePath){
+
+        String url = DemoApi.VIDEO_URL;
+        postFormBuilder = OkHttpUtils.getInstance().post().url(url);
+
+        postFormBuilder.addHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN);
+        postFormBuilder.addParams("content",EmojiFilter.filterEmoji(messageContext.getText().toString()));
+        postFormBuilder.addParams("latitude",latitude+"");
+        postFormBuilder.addParams("longitude",longitude+"");
+        postFormBuilder.addParams("location",location);
+        postFormBuilder.addParams("publicScope",publicScope);
+        postFormBuilder.addParams("forwardMessageId","");
+        postFormBuilder.addParams("topicRangeStr",topicRangeStr);
+        postFormBuilder.addParams("tagIds",tagIds);
+        if (increaseTime!=null){
+            postFormBuilder.addParams("increaseTime",increaseTime);
+        }
+        if (increaseType != null){
+            postFormBuilder.addParams("increaseType",increaseType);
+        }
+        if (type.equals("0")) {
+            postFormBuilder.addParams("userIds","");
+        }else {
+            postFormBuilder.addParams("userIds",userIds);
+        }
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(videoFilePath);
+            mediaPlayer.prepare();
+
+            s = mediaPlayer.getDuration();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File file = new File(videoFilePath);
+
+        double dfileSize = FileSizeUtil.getFileOrFilesSize(videoFilePath, 3);
+        int fileSize= (int) (dfileSize+1);
+
+        postFormBuilder.addFile("videos",file.getName()+".mp4",file);
+        postFormBuilder.addFile("pictures",videoThumbnail.getName()+".png",videoThumbnail);
+        postFormBuilder.addParams("fileLen",s+"");
+        postFormBuilder.addParams("fileSize",fileSize+"");
+        postFormBuilder.build().execute(sendCallback);
+
+    }
+
+
+
+//    private void sendVideoMessage() {
+//
+//        if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
+//            Toast.makeText(getApplicationContext(),
+//                    ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                HttpURLConnection connection = null;
+//                DataOutputStream outputStream = null;
+//                ByteArrayInputStream inputStream = null;
+//
+//                String  lineEnd = "\r\n";
+//                String twoHyphens = "--";
+//                String boundary = "*****";
+//                double dfileSize = FileSizeUtil.getFileOrFilesSize(videoPath, 3);
+//                int fileSize= (int) (dfileSize+1);
+//
+//                Map<String, Object> params = new HashMap<String, Object>();
+//
+//                int fileLen = 10;
+//                android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
+//
+//                try {
+//                    mmr.setDataSource(videoPath);
+//                    String duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+//                    fileLen = Integer.valueOf(duration);
+//                    fileLen = fileLen/1000+1;
+//                } catch (Exception ex) {
+//                    Log.e("Exception", "MediaMetadataRetriever exception " + ex);
+//                } finally {
+//                    mmr.release();
+//                }
+//                params.put("content", EmojiFilter.filterEmoji(messageContext.getText().toString()));
+//                params.put("latitude", latitude);
+//                params.put("longitude", longitude);
+//                params.put("location", location);
+//                params.put("fileLen", fileLen);
+//                params.put("fileSize",fileSize);
+//                params.put("publicScope", publicScope);
+//                params.put("forwardMessageId", "");
+//                params.put("topicRangeStr", topicRangeStr);
+//                params.put("tagIds", tagIds);
+//                if (increaseTime!=null){
+//                    params.put("increaseTime",increaseTime);
+//                }
+//                if (increaseType != null){
+//                    params.put("increaseType",increaseType);
+//                }
+//
+//                if (type.equals("0")) {
+//                    params.put("userIds", "");
+//                }else {
+//                    params.put("userIds", userIds);
+//                }
+//
+//                byte[] buffer;
+//
+//                try {
+//                    URL url = new URL(DemoApi.VIDEO_URL);
+//                    connection = (HttpURLConnection) url.openConnection();
+//
+//                    // Allow Inputs &amp; Outputs.
+//                    connection.setDoInput(true);
+//                    connection.setDoOutput(true);
+//                    connection.setUseCaches(false);
+//                    connection.setConnectTimeout(5000);
+//
+//                    // Set HTTP method to POST.
+//                    connection.setRequestMethod("POST");
+//                    connection.setRequestProperty("Connection", "Keep-Alive");
+//                    connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+//                    connection.setRequestProperty("Cookie", "zw_token=" + App.ZCZW_TOKEN);
+//
+//                    StringBuilder sb = new StringBuilder();
+//                    // 上传的表单参数部分，格式请参考文章
+//                    for (Map.Entry<String, Object> entry : params.entrySet()) {// 构建表单字段内容
+//                        sb.append(twoHyphens);
+//                        sb.append(boundary);
+//                        sb.append(lineEnd);
+//                        sb.append("Content-Disposition: form-data; name=\"" + entry.getKey() + "\"" + lineEnd + lineEnd);
+//                        sb.append(entry.getValue());
+//                        sb.append(lineEnd);
+//                    }
+//
+//                    outputStream = new DataOutputStream(connection
+//                            .getOutputStream());
+//                    // 发送文字信息
+//                    outputStream.write(sb.toString().getBytes());
+//
+//                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"videos\";filename=\"" + videoPath + "\"" + lineEnd);
+//                    outputStream.writeBytes(lineEnd);
+//                    FileInputStream fis = new FileInputStream(videoPath);
+//                    byte buf[]=new byte[1024*10];
+//                    int size = fis.read(buf);
+//                    while(size>0){
+//                        outputStream.write(buf, 0, size);
+//                        size = fis.read(buf);
+//                    }
+//                    outputStream.writeBytes(lineEnd);
+//
+//                    fis.close();
+//
+//                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//                    String imgPath = "IMG_"+ timeStamp + ".jpeg";
+//                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"pictures\";filename=\"" + imgPath + "\"" + lineEnd);
+//                    outputStream.writeBytes(lineEnd);
+//
+//                    ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
+//                    // photo.compress(Bitmap.CompressFormat.PNG, 30,
+//                    // photoStream);
+//                    videoPhoto.compress(Bitmap.CompressFormat.JPEG, 100, photoStream);
+//
+//                    inputStream = new ByteArrayInputStream(photoStream.toByteArray());
+//
+//                    size = inputStream.read(buf);
+//                    while(size>0){
+//                        outputStream.write(buf, 0, size);
+//                        size = inputStream.read(buf);
+//                    }
+//                    outputStream.writeBytes(lineEnd);
+//
+//                    inputStream.close();
+//
+//                    outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+//                    connection.connect();
+//                    int serverResponseCode = connection.getResponseCode();
+//                    outputStream.flush();
+//                    outputStream.close();
+//                    if (200 == serverResponseCode) {
+//                        InputStream is = connection.getInputStream();
+//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                        buffer = new byte[1024];
+//                        int len = 0;
+//                        while ((len = is.read(buffer)) != -1) {
+//
+//                            baos.write(buffer, 0, len);
+//                        }
+//
+//                        String returnString = baos.toString();
+//                        baos.close();
+//                        is.close();
+//                        JSONObject returnInfo = null;
+//                        try {
+//                            // 转换成json数据
+//                            returnInfo = new JSONObject(returnString);
+//                        } catch (JSONException e) {
+//                            handler.post(new Runnable() {
+//
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(getApplicationContext(), "发布动态失败，服务器异常", Toast.LENGTH_SHORT).show();
+//                                    Log.e("发布动态", "服务器异常，返回不是json");
+//                                }
+//                            });
+//                        }
+//
+//                        Log.d("returnValue", returnString);
+//                        if (returnInfo != null) {
+//
+//                            int info = returnInfo.getInt("status");
+//                            if (200 == info) {
+//                                // Activity关闭前先关闭进度条，不然会内存泄露
+//                                // mypDialog.dismiss();
+//                                Log.d("AddDongtaiActivity_v3", "动态创建成功");
+//                                Intent intent = new Intent();
+//                                messageContext.setText("");
+//                                AddMessageActivity.this.finish();
+//
+//                            } else if (400 == info) {
+//
+//                                handler.post(new Runnable() {
+//
+//                                    @Override
+//                                    public void run() {
+//                                        Log.d("AddDongtaiActivity_v3", "动态创建失败");
+//                                        // mypDialog.dismiss();
+//                                        Toast.makeText(AddMessageActivity.this, "动态创建失败", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    } else if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
+//
+//                        handler.post(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(AddMessageActivity.this, ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
+//                                // Log.d(TAG, "创建动态失败，网络连接失败");
+//                            }
+//                        });
+//                    } else {
+//                        handler.post(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(AddMessageActivity.this, "创建动态失败，服务器异常", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    WinToast.makeText(AddMessageActivity.this, "视频读取失败，请重新上传。");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }finally {
+//                    mypDialog.dismiss();
+//                }
+//            }
+//        }).start();
+//    }
 
     @Override
     public void onReceiveLocation(BDLocation bdLocation) {

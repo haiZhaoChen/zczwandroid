@@ -10,10 +10,12 @@ import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -36,6 +38,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.vincent.videocompressor.VideoCompress;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
@@ -101,6 +104,10 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
     private boolean isSend;
 
     private boolean isFormal;
+
+    //视频转码后存放地址
+    private String outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+    private String outVideoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -357,24 +364,109 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }else {
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(videoPath);
-                mediaPlayer.prepare();
-                s = mediaPlayer.getDuration();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            File file = new File(videoPath);
-
-            postFormBuilder.addFile("video",file.getName()+".mp4",file);
-            postFormBuilder.addFile("videoThumbnail",videoThumbnail.getName()+".png",videoThumbnail);
-            postFormBuilder.addParams("videoFileLen",s+"");
-            postFormBuilder.addParams("videoFileSize",file.length()+"");
-            postFormBuilder.build().execute(sendCallback);
+            sendVideoMessage();
         }
     }
+
+
+    private void sendVideoFile(String path){
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepare();
+            s = mediaPlayer.getDuration();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File file = new File(path);
+
+        postFormBuilder.addFile("video",file.getName()+".mp4",file);
+        postFormBuilder.addFile("videoThumbnail",videoThumbnail.getName()+".png",videoThumbnail);
+        postFormBuilder.addParams("videoFileLen",s+"");
+        postFormBuilder.addParams("videoFileSize",file.length()+"");
+        postFormBuilder.build().execute(sendCallback);
+    }
+
+    private void sendVideoMessage() {
+
+        if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
+            Toast.makeText(getApplicationContext(),
+                    ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //转码
+        outVideoPath = outputDir + File.separator + "out_VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+        VideoCompress.compressVideoLow(videoPath, outVideoPath, new VideoCompress.CompressListener() {
+            @Override
+            public void onStart() {
+                mypDialog.setMessage("动态视频正在压缩转码中...");
+
+            }
+
+            @Override
+            public void onSuccess() {
+                //这里发送转码后视频
+                mypDialog.setMessage("视频转码成功，正在发布...");
+                sendVideoFile(outVideoPath);
+            }
+
+            @Override
+            public void onFail() {
+
+                mypDialog.setMessage("视频转码失败，原动态发布中...");
+                //失败就会发送原视频，并删除目标转码文件
+                sendVideoFile(videoPath);
+                delete(outVideoPath);
+            }
+
+            @Override
+            public void onProgress(float percent) {
+
+            }
+        });
+
+
+    }
+
+    /** 删除文件，可以是文件或文件夹
+     * @param delFile 要删除的文件夹或文件名
+     * @return 删除成功返回true，否则返回false
+     */
+    private void delete(String delFile) {
+        File file = new File(delFile);
+        if (!file.exists()) {
+
+        } else {
+            if (file.isFile()){
+                deleteSingleFile(delFile);
+            }
+
+        }
+    }
+
+    /** 删除单个文件
+     * @param filePath$Name 要删除的文件的文件名
+     * @return 单个文件删除成功返回true，否则返回false
+     */
+    private boolean deleteSingleFile(String filePath$Name) {
+        File file = new File(filePath$Name);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                Log.e("--Method--", "Copy_Delete.deleteSingleFile: 删除单个文件" + filePath$Name + "成功！");
+                return true;
+            } else {
+//                Toast.makeText(getApplicationContext(), "删除单个文件" + filePath$Name + "失败！", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else {
+//            Toast.makeText(getApplicationContext(), "删除单个文件失败：" + filePath$Name + "不存在！", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
 
     private OnCompressListener compressListener = new OnCompressListener() {
         @Override
@@ -421,6 +513,8 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 if (videoThumbnail != null) {
                     videoThumbnail.delete();
+                    //删除视频转码地址
+                    delete(outVideoPath);
                 }
                 onBackPressed();
             }else {
@@ -486,7 +580,7 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                     videoPath = cursor.getString(columnIndex);
                     cursor.close();
                     double fileSize = FileSizeUtil.getFileOrFilesSize(videoPath, 3);
-                    if (fileSize <40) {
+                    if (fileSize <80) {
                         videoPhoto = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.MINI_KIND);
                         videoPhoto = ThumbnailUtils.extractThumbnail(videoPhoto, 1080, 1920, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
                         videoThumbnail = saveBitmap(videoPhoto);
@@ -494,7 +588,7 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                         imgVideo.setImageBitmap(videoPhoto);
                         imgPlay.setImageResource(android.R.drawable.ic_media_play);
                     }else{
-                        Toast.makeText(AddPaiActivity.this,"目标文件为"+fileSize+"Mb,超过默认40Mb限制，不支持上传",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddPaiActivity.this,"目标文件为"+fileSize+"Mb,超过默认80Mb限制，不支持上传",Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
