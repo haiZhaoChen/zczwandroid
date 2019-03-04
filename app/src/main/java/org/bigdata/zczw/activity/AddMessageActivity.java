@@ -173,6 +173,7 @@ public class AddMessageActivity extends AppCompatActivity
             if(msg.what == 55){
                 mypDialog.dismiss();
                 Toast.makeText(AddMessageActivity.this, "动态发布成功", Toast.LENGTH_SHORT).show();
+                messageContext.setText("");
                 finish();
             }
         }
@@ -1189,6 +1190,7 @@ public class AddMessageActivity extends AppCompatActivity
             if (bean != null && bean.getStatus() == 200) {
                 Utils.showToast(AddMessageActivity.this,"发布成功");
                 App.PUBLISH_CONTENT = null;
+                messageContext.setText("");
                 finish();
             }else {
                 Utils.showToast(AddMessageActivity.this,"发布失败");
@@ -1368,6 +1370,7 @@ public class AddMessageActivity extends AppCompatActivity
                                 // mypDialog.dismiss();
                                 Log.d("AddDongtaiActivity_v3", "动态创建成功");
                                 Intent intent = new Intent();
+                                messageContext.setText("");
                                 AddMessageActivity.this.finish();
 
                             } else if (400 == info) {
