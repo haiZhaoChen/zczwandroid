@@ -371,10 +371,13 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sendVideoFile(String path){
         MediaPlayer mediaPlayer = new MediaPlayer();
+        int fileLen = 10;
         try {
             mediaPlayer.setDataSource(path);
             mediaPlayer.prepare();
             s = mediaPlayer.getDuration();
+            fileLen = Integer.valueOf(s);
+            fileLen = fileLen/1000+1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -383,7 +386,7 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
 
         postFormBuilder.addFile("video",file.getName()+".mp4",file);
         postFormBuilder.addFile("videoThumbnail",videoThumbnail.getName()+".png",videoThumbnail);
-        postFormBuilder.addParams("videoFileLen",s+"");
+        postFormBuilder.addParams("videoFileLen",fileLen+"");
         postFormBuilder.addParams("videoFileSize",file.length()+"");
         postFormBuilder.build().execute(sendCallback);
     }

@@ -1348,11 +1348,14 @@ public class AddMessageActivity extends AppCompatActivity
         }
 
         MediaPlayer mediaPlayer = new MediaPlayer();
+        int fileLen = 10;
         try {
             mediaPlayer.setDataSource(videoFilePath);
             mediaPlayer.prepare();
 
             s = mediaPlayer.getDuration();
+            fileLen = Integer.valueOf(s);
+            fileLen = fileLen/1000+1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1364,7 +1367,7 @@ public class AddMessageActivity extends AppCompatActivity
 
         postFormBuilder.addFile("videos",file.getName()+".mp4",file);
         postFormBuilder.addFile("pictures",videoThumbnail.getName()+".png",videoThumbnail);
-        postFormBuilder.addParams("fileLen",s+"");
+        postFormBuilder.addParams("fileLen",fileLen+"");
         postFormBuilder.addParams("fileSize",fileSize+"");
         postFormBuilder.build().execute(sendCallback);
 
