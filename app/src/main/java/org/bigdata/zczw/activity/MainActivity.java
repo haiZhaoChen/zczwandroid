@@ -128,10 +128,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     info = (UpdateInfo) msg.obj;
                     if (info != null) {
                         versionName = info.getVersionName();
+                        int forceType = Integer.valueOf(info.getForcedType()).intValue();
                         Log.e("1111", "handleMessage: " + versionName + "getVersionName()" + getVersionName());
                         // 比较当前版本与服务器的版本
                         if (!getVersionName().equals(versionName)) {
-                            showNoticeDialog();
+                            showNoticeDialog(forceType);
                         }
                     }
                     break;
@@ -458,12 +459,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 检查更新
      */
     private void checkUpdate() {
+
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 try {
                     InputStream inStream = HttpUtil.getInputStream(DemoApi.HOST
-                            + "apk/version.xml?zw_token=" + App.ZCZW_TOKEN, null, HttpUtil.METHOD_GET);
+                            + "appVersion/getAppUpdate.xml?zw_token=" + App.ZCZW_TOKEN, null, HttpUtil.METHOD_GET);
                     // 解析xml文件。由于XML文件较小，我们采用DOM方式进行解析
                     ParseXmlService service = new ParseXmlService();// 这个类是自己写的解析XML的工具类
                     HashMap<String, String> map = service.parseXml(inStream);
@@ -471,6 +474,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     info.setName(map.get("name"));
                     info.setUrl(map.get("url"));
                     info.setVersionName(map.get("version"));
+                    info.setForcedType(map.get("forcedType"));
                     Message msg = new Message();
                     msg.what = CONNECT_SUCCESS;
                     msg.obj = info;
@@ -483,7 +487,35 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
         }).start();
+
     }
+//    private void checkUpdate() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    InputStream inStream = HttpUtil.getInputStream(DemoApi.HOST
+//                            + "apk/version.xml?zw_token=" + App.ZCZW_TOKEN, null, HttpUtil.METHOD_GET);
+//                    // 解析xml文件。由于XML文件较小，我们采用DOM方式进行解析
+//                    ParseXmlService service = new ParseXmlService();// 这个类是自己写的解析XML的工具类
+//                    HashMap<String, String> map = service.parseXml(inStream);
+//                    UpdateInfo info = new UpdateInfo();
+//                    info.setName(map.get("name"));
+//                    info.setUrl(map.get("url"));
+//                    info.setVersionName(map.get("version"));
+//                    Message msg = new Message();
+//                    msg.what = CONNECT_SUCCESS;
+//                    msg.obj = info;
+//                    handler.sendMessage(msg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    handler.sendEmptyMessage(CONNECT_ERROR);
+//                }
+//            }
+//        }).start();
+//    }
 
     /**
      * 安装APK
@@ -536,26 +568,44 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     /**
      * 显示软件更新对话框
      */
-    private void showNoticeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("软件有新版本 "+versionName+"，要更新吗？");
-        builder.setTitle("软件更新：");
-        builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                // 显示软件下载对话框
-                Toast.makeText(MainActivity.this,"开始下载",Toast.LENGTH_SHORT).show();
-                createNotify();
-            }
-        });
-        builder.setNegativeButton("稍后再说", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
+    private void showNoticeDialog(int forceType) {
+        if (forceType == 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("软件有新版本 "+versionName+"，要更新吗？");
+            builder.setTitle("软件更新：");
+            builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    // 显示软件下载对话框
+                    Toast.makeText(MainActivity.this,"开始下载",Toast.LENGTH_SHORT).show();
+                    createNotify();
+                }
+            });
+            builder.setNegativeButton("稍后再说", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        }else if (1==forceType){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("软件有新版本 "+versionName+"，需更新才能使用");
+            builder.setTitle("软件更新：");
+            builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    // 显示软件下载对话框
+                    Toast.makeText(MainActivity.this,"开始下载",Toast.LENGTH_SHORT).show();
+                    createNotify();
+                }
+            });
+            builder.setCancelable(false);
+            builder.create().show();
+        }
     }
 
     /**
