@@ -27,12 +27,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aliyun.demo.crop.AliyunVideoCrop;
-import com.aliyun.demo.recorder.AliyunVideoRecorder;
-import com.aliyun.struct.common.VideoQuality;
-import com.aliyun.struct.recorder.CameraType;
-import com.aliyun.struct.recorder.FlashType;
-import com.aliyun.struct.snap.AliyunSnapVideoParam;
+import com.aliyun.svideo.sdk.external.struct.common.CropKey;
+import com.aliyun.svideo.sdk.external.struct.common.VideoDisplayMode;
+import com.aliyun.svideo.sdk.external.struct.common.VideoQuality;
+import com.aliyun.svideo.sdk.external.struct.encoder.VideoCodecs;
+import com.aliyun.svideo.sdk.external.struct.recorder.CameraType;
+import com.aliyun.svideo.sdk.external.struct.recorder.FlashType;
+import com.aliyun.svideo.sdk.external.struct.snap.AliyunSnapVideoParam;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -58,6 +59,7 @@ import org.bigdata.zczw.utils.DemoApi;
 import org.bigdata.zczw.utils.FileSizeUtil;
 import org.bigdata.zczw.utils.JsonUtils;
 import org.bigdata.zczw.utils.Utils;
+import org.bigdata.zczw.video.AliyunVideoRecorder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -272,21 +274,33 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.rl_add_video_act://摄像
                 if (picList.size()==0 && TextUtils.isEmpty(videoPath)) {
+                    String[] effectDirs = {"炽黄","粉桃","海蓝","红润","灰白","经典","麦茶","浓烈","柔柔","闪耀","鲜果","雪梨","阳光","优雅","朝阳"};
+
+
+
                     AliyunSnapVideoParam recordParam = new AliyunSnapVideoParam.Builder()
-                            //设置录制分辨率，目前支持360p，480p，540p，720p
-                            .setResulutionMode(AliyunSnapVideoParam.RESOLUTION_540P)
-                            //设置视频比例，目前支持1:1,3:4,9:16
-                            .setRatioMode(AliyunSnapVideoParam.RATIO_MODE_9_16)
-                            .setRecordMode(AliyunSnapVideoParam.RECORD_MODE_AUTO) //设置录制模式，目前支持按录，点录和混合模式
-                            .setBeautyLevel(80) //设置美颜度
-                            .setBeautyStatus(false) //设置美颜开关
-                            .setCameraType(CameraType.BACK) //设置前后置摄像头
-                            .setFlashType(FlashType.OFF) // 设置闪光灯模式
-                            .setNeedClip(true) //设置是否需要支持片段录制
-                            .setMaxDuration(30000) //设置最大录制时长 单位毫秒
-                            .setMinDuration(2000) //设置最小录制时长 单位毫秒
-                            .setVideQuality(VideoQuality.HD) //设置视频质量
-                            .setGop(125) //设置关键帧间隔
+                            .setResolutionMode(AliyunSnapVideoParam.RESOLUTION_540P)
+                            .setRatioMode(AliyunSnapVideoParam.RATIO_MODE_3_4)
+                            .setRecordMode(AliyunSnapVideoParam.RECORD_MODE_AUTO)
+                            .setFilterList(effectDirs)
+                            .setBeautyLevel(80)
+                            .setBeautyStatus(false)
+                            .setCameraType(CameraType.BACK)
+                            .setFlashType(FlashType.OFF)
+                            .setNeedClip(true)
+                            .setMaxDuration(30000)
+                            .setMinDuration(2000)
+                            .setVideoQuality(VideoQuality.HD)
+                            .setGop(5)
+                            .setVideoCodec(VideoCodecs.H264_HARDWARE)
+
+                            /**
+                             * 裁剪参数
+                             */
+                            .setFrameRate(25)
+                            .setCropMode(VideoDisplayMode.FILL)
+                            //显示分类SORT_MODE_VIDEO视频;SORT_MODE_PHOTO图片;SORT_MODE_MERGE图片和视频
+                            .setSortMode(AliyunSnapVideoParam.SORT_MODE_VIDEO)
                             .build();
 
                     AliyunVideoRecorder.startRecordForResult(AddPaiActivity.this,103,recordParam);
@@ -559,7 +573,7 @@ public class AddPaiActivity extends AppCompatActivity implements View.OnClickLis
                 if(resultCode == Activity.RESULT_OK && data!= null){
                     int type = data.getIntExtra(AliyunVideoRecorder.RESULT_TYPE,0);
                     if(type ==  AliyunVideoRecorder.RESULT_TYPE_CROP){
-                        videoPath = data.getStringExtra(AliyunVideoCrop.RESULT_KEY_CROP_PATH);
+                        videoPath = data.getStringExtra(CropKey.RESULT_KEY_CROP_PATH);
                     }else if(type ==  AliyunVideoRecorder.RESULT_TYPE_RECORD){
                         videoPath = data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH );
                     }

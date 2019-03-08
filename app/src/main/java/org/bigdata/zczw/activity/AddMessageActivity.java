@@ -40,12 +40,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aliyun.demo.crop.AliyunVideoCrop;
-import com.aliyun.demo.recorder.AliyunVideoRecorder;
-import com.aliyun.struct.common.VideoQuality;
-import com.aliyun.struct.recorder.CameraType;
-import com.aliyun.struct.recorder.FlashType;
-import com.aliyun.struct.snap.AliyunSnapVideoParam;
+import com.aliyun.svideo.sdk.external.struct.common.CropKey;
+import com.aliyun.svideo.sdk.external.struct.common.VideoDisplayMode;
+import com.aliyun.svideo.sdk.external.struct.common.VideoQuality;
+import com.aliyun.svideo.sdk.external.struct.encoder.VideoCodecs;
+import com.aliyun.svideo.sdk.external.struct.recorder.CameraType;
+import com.aliyun.svideo.sdk.external.struct.recorder.FlashType;
+import com.aliyun.svideo.sdk.external.struct.snap.AliyunSnapVideoParam;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -82,6 +83,7 @@ import org.bigdata.zczw.utils.JsonUtils;
 import org.bigdata.zczw.utils.NoUnderlineSpan;
 import org.bigdata.zczw.utils.SPUtil;
 import org.bigdata.zczw.utils.Utils;
+import org.bigdata.zczw.video.AliyunVideoRecorder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -653,8 +655,8 @@ public class AddMessageActivity extends AppCompatActivity
             if(resultCode == Activity.RESULT_OK && data!= null){
                 int type = data.getIntExtra(AliyunVideoRecorder.RESULT_TYPE,0);
                 if(type ==  AliyunVideoRecorder.RESULT_TYPE_CROP){
-                    videoPath = data.getStringExtra(AliyunVideoCrop.RESULT_KEY_CROP_PATH);
-                    Log.e("1111", "文件路径为 "+ videoPath + " 时长为 " + data.getLongExtra(AliyunVideoCrop.RESULT_KEY_DURATION,0) );
+                    videoPath = data.getStringExtra(CropKey.RESULT_KEY_CROP_PATH);
+                    Log.e("1111", "文件路径为 "+ videoPath + " 时长为 " + data.getLongExtra(CropKey.RESULT_KEY_DURATION,0) );
                 }else if(type ==  AliyunVideoRecorder.RESULT_TYPE_RECORD){
                     Log.e("1111","文件路径为 "+ data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH ));
                     videoPath = data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH );
@@ -896,21 +898,33 @@ public class AddMessageActivity extends AppCompatActivity
                     return;
                 }
 
+                String[] effectDirs = {"炽黄","粉桃","海蓝","红润","灰白","经典","麦茶","浓烈","柔柔","闪耀","鲜果","雪梨","阳光","优雅","朝阳"};
+
+
+
                 AliyunSnapVideoParam recordParam = new AliyunSnapVideoParam.Builder()
-                        //设置录制分辨率，目前支持360p，480p，540p，720p
-                        .setResulutionMode(AliyunSnapVideoParam.RESOLUTION_540P)
-                        //设置视频比例，目前支持1:1,3:4,9:16
-                        .setRatioMode(AliyunSnapVideoParam.RATIO_MODE_9_16)
-                        .setRecordMode(AliyunSnapVideoParam.RECORD_MODE_AUTO) //设置录制模式，目前支持按录，点录和混合模式
-                        .setBeautyLevel(80) //设置美颜度
-                        .setBeautyStatus(false) //设置美颜开关
-                        .setCameraType(CameraType.BACK) //设置前后置摄像头
-                        .setFlashType(FlashType.OFF) // 设置闪光灯模式
-                        .setNeedClip(true) //设置是否需要支持片段录制
-                        .setMaxDuration(30000) //设置最大录制时长 单位毫秒
-                        .setMinDuration(2000) //设置最小录制时长 单位毫秒
-                        .setVideQuality(VideoQuality.HD) //设置视频质量
-                        .setGop(125) //设置关键帧间隔
+                        .setResolutionMode(AliyunSnapVideoParam.RESOLUTION_540P)
+                        .setRatioMode(AliyunSnapVideoParam.RATIO_MODE_3_4)
+                        .setRecordMode(AliyunSnapVideoParam.RECORD_MODE_AUTO)
+                        .setFilterList(effectDirs)
+                        .setBeautyLevel(80)
+                        .setBeautyStatus(false)
+                        .setCameraType(CameraType.BACK)
+                        .setFlashType(FlashType.OFF)
+                        .setNeedClip(true)
+                        .setMaxDuration(30000)
+                        .setMinDuration(2000)
+                        .setVideoQuality(VideoQuality.HD)
+                        .setGop(5)
+                        .setVideoCodec(VideoCodecs.H264_HARDWARE)
+
+                        /**
+                         * 裁剪参数
+                         */
+                        .setFrameRate(25)
+                        .setCropMode(VideoDisplayMode.FILL)
+                        //显示分类SORT_MODE_VIDEO视频;SORT_MODE_PHOTO图片;SORT_MODE_MERGE图片和视频
+                        .setSortMode(AliyunSnapVideoParam.SORT_MODE_VIDEO)
                         .build();
 
                 AliyunVideoRecorder.startRecordForResult(AddMessageActivity.this,1035,recordParam);
@@ -1373,228 +1387,6 @@ public class AddMessageActivity extends AppCompatActivity
 
     }
 
-
-
-//    private void sendVideoMessage() {
-//
-//        if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
-//            Toast.makeText(getApplicationContext(),
-//                    ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                HttpURLConnection connection = null;
-//                DataOutputStream outputStream = null;
-//                ByteArrayInputStream inputStream = null;
-//
-//                String  lineEnd = "\r\n";
-//                String twoHyphens = "--";
-//                String boundary = "*****";
-//                double dfileSize = FileSizeUtil.getFileOrFilesSize(videoPath, 3);
-//                int fileSize= (int) (dfileSize+1);
-//
-//                Map<String, Object> params = new HashMap<String, Object>();
-//
-//                int fileLen = 10;
-//                android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
-//
-//                try {
-//                    mmr.setDataSource(videoPath);
-//                    String duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
-//                    fileLen = Integer.valueOf(duration);
-//                    fileLen = fileLen/1000+1;
-//                } catch (Exception ex) {
-//                    Log.e("Exception", "MediaMetadataRetriever exception " + ex);
-//                } finally {
-//                    mmr.release();
-//                }
-//                params.put("content", EmojiFilter.filterEmoji(messageContext.getText().toString()));
-//                params.put("latitude", latitude);
-//                params.put("longitude", longitude);
-//                params.put("location", location);
-//                params.put("fileLen", fileLen);
-//                params.put("fileSize",fileSize);
-//                params.put("publicScope", publicScope);
-//                params.put("forwardMessageId", "");
-//                params.put("topicRangeStr", topicRangeStr);
-//                params.put("tagIds", tagIds);
-//                if (increaseTime!=null){
-//                    params.put("increaseTime",increaseTime);
-//                }
-//                if (increaseType != null){
-//                    params.put("increaseType",increaseType);
-//                }
-//
-//                if (type.equals("0")) {
-//                    params.put("userIds", "");
-//                }else {
-//                    params.put("userIds", userIds);
-//                }
-//
-//                byte[] buffer;
-//
-//                try {
-//                    URL url = new URL(DemoApi.VIDEO_URL);
-//                    connection = (HttpURLConnection) url.openConnection();
-//
-//                    // Allow Inputs &amp; Outputs.
-//                    connection.setDoInput(true);
-//                    connection.setDoOutput(true);
-//                    connection.setUseCaches(false);
-//                    connection.setConnectTimeout(5000);
-//
-//                    // Set HTTP method to POST.
-//                    connection.setRequestMethod("POST");
-//                    connection.setRequestProperty("Connection", "Keep-Alive");
-//                    connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-//                    connection.setRequestProperty("Cookie", "zw_token=" + App.ZCZW_TOKEN);
-//
-//                    StringBuilder sb = new StringBuilder();
-//                    // 上传的表单参数部分，格式请参考文章
-//                    for (Map.Entry<String, Object> entry : params.entrySet()) {// 构建表单字段内容
-//                        sb.append(twoHyphens);
-//                        sb.append(boundary);
-//                        sb.append(lineEnd);
-//                        sb.append("Content-Disposition: form-data; name=\"" + entry.getKey() + "\"" + lineEnd + lineEnd);
-//                        sb.append(entry.getValue());
-//                        sb.append(lineEnd);
-//                    }
-//
-//                    outputStream = new DataOutputStream(connection
-//                            .getOutputStream());
-//                    // 发送文字信息
-//                    outputStream.write(sb.toString().getBytes());
-//
-//                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"videos\";filename=\"" + videoPath + "\"" + lineEnd);
-//                    outputStream.writeBytes(lineEnd);
-//                    FileInputStream fis = new FileInputStream(videoPath);
-//                    byte buf[]=new byte[1024*10];
-//                    int size = fis.read(buf);
-//                    while(size>0){
-//                        outputStream.write(buf, 0, size);
-//                        size = fis.read(buf);
-//                    }
-//                    outputStream.writeBytes(lineEnd);
-//
-//                    fis.close();
-//
-//                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//                    String imgPath = "IMG_"+ timeStamp + ".jpeg";
-//                    outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-//                    outputStream.writeBytes("Content-Disposition: form-data; name=\"pictures\";filename=\"" + imgPath + "\"" + lineEnd);
-//                    outputStream.writeBytes(lineEnd);
-//
-//                    ByteArrayOutputStream photoStream = new ByteArrayOutputStream();
-//                    // photo.compress(Bitmap.CompressFormat.PNG, 30,
-//                    // photoStream);
-//                    videoPhoto.compress(Bitmap.CompressFormat.JPEG, 100, photoStream);
-//
-//                    inputStream = new ByteArrayInputStream(photoStream.toByteArray());
-//
-//                    size = inputStream.read(buf);
-//                    while(size>0){
-//                        outputStream.write(buf, 0, size);
-//                        size = inputStream.read(buf);
-//                    }
-//                    outputStream.writeBytes(lineEnd);
-//
-//                    inputStream.close();
-//
-//                    outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-//                    connection.connect();
-//                    int serverResponseCode = connection.getResponseCode();
-//                    outputStream.flush();
-//                    outputStream.close();
-//                    if (200 == serverResponseCode) {
-//                        InputStream is = connection.getInputStream();
-//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                        buffer = new byte[1024];
-//                        int len = 0;
-//                        while ((len = is.read(buffer)) != -1) {
-//
-//                            baos.write(buffer, 0, len);
-//                        }
-//
-//                        String returnString = baos.toString();
-//                        baos.close();
-//                        is.close();
-//                        JSONObject returnInfo = null;
-//                        try {
-//                            // 转换成json数据
-//                            returnInfo = new JSONObject(returnString);
-//                        } catch (JSONException e) {
-//                            handler.post(new Runnable() {
-//
-//                                @Override
-//                                public void run() {
-//                                    Toast.makeText(getApplicationContext(), "发布动态失败，服务器异常", Toast.LENGTH_SHORT).show();
-//                                    Log.e("发布动态", "服务器异常，返回不是json");
-//                                }
-//                            });
-//                        }
-//
-//                        Log.d("returnValue", returnString);
-//                        if (returnInfo != null) {
-//
-//                            int info = returnInfo.getInt("status");
-//                            if (200 == info) {
-//                                // Activity关闭前先关闭进度条，不然会内存泄露
-//                                // mypDialog.dismiss();
-//                                Log.d("AddDongtaiActivity_v3", "动态创建成功");
-//                                Intent intent = new Intent();
-//                                messageContext.setText("");
-//                                AddMessageActivity.this.finish();
-//
-//                            } else if (400 == info) {
-//
-//                                handler.post(new Runnable() {
-//
-//                                    @Override
-//                                    public void run() {
-//                                        Log.d("AddDongtaiActivity_v3", "动态创建失败");
-//                                        // mypDialog.dismiss();
-//                                        Toast.makeText(AddMessageActivity.this, "动态创建失败", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    } else if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
-//
-//                        handler.post(new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(AddMessageActivity.this, ZCZWConstants.NETWORK_INVALID, Toast.LENGTH_SHORT).show();
-//                                // Log.d(TAG, "创建动态失败，网络连接失败");
-//                            }
-//                        });
-//                    } else {
-//                        handler.post(new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(AddMessageActivity.this, "创建动态失败，服务器异常", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    WinToast.makeText(AddMessageActivity.this, "视频读取失败，请重新上传。");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }finally {
-//                    mypDialog.dismiss();
-//                }
-//            }
-//        }).start();
-//    }
 
     @Override
     public void onReceiveLocation(BDLocation bdLocation) {

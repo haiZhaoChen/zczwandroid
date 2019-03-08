@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/title_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/exam_panduan"
                 />
             <TextView
@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/questionA_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/a_normal"
                 />
             <TextView
@@ -69,8 +69,8 @@
 
             <ImageView
                 android:id="@+id/questionB_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/b_normal"
                 />
             <TextView
@@ -94,8 +94,8 @@
 
             <ImageView
                 android:id="@+id/questionC_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/c_normal"
                 />
             <TextView
@@ -118,8 +118,8 @@
 
             <ImageView
                 android:id="@+id/questionD_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/d_normal"
                 />
             <TextView
@@ -143,8 +143,8 @@
 
             <ImageView
                 android:id="@+id/questionE_img_name"
-                android:layout_width="@dimen/exam_img_size"
-                android:layout_height="@dimen/exam_img_size"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/e_normal"
                 />
             <TextView
