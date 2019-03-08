@@ -106,7 +106,7 @@ public class GroupSelectActivity extends AppCompatActivity {
                     WinToast.toast(getApplicationContext(), "客户端错误");
                     break;
                 case 444://登陆过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500://服务器错误
                     WinToast.toast(getApplicationContext(), "服务器错误");

@@ -129,7 +129,7 @@ public class MentionUserActivity extends AppCompatActivity implements AdapterVie
                     mListView.setAdapter(mAdapter);
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }

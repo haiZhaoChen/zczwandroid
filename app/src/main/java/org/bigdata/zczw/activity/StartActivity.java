@@ -251,7 +251,7 @@ public class StartActivity extends AppCompatActivity {
                     WinToast.toast(getApplicationContext(), "好友列表加载失败");
                     break;
                 case 444:
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     SPUtil.remove(StartActivity.this, App.ZW_TOKEN);//清空token
                     SPUtil.remove(StartActivity.this, App.USER_TOKEN);//清空token
                     startActivity(new Intent(StartActivity.this,LoginActivity.class));
@@ -292,7 +292,7 @@ public class StartActivity extends AppCompatActivity {
                     WinToast.toast(getApplicationContext(), "客户端错误");
                     break;
                 case 444://登陆过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500://服务器错误
                     WinToast.toast(getApplicationContext(), "服务器错误");

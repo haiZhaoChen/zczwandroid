@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             switch (demoApiJSON.getStatus()) {
                 case 200://登录成功
                     //登录后zw_token 保存为常量
-                    WinToast.toast(getApplicationContext(), "正在登陆");
+                    WinToast.toast(getApplicationContext(), "正在登录");
                     App.ZCZW_TOKEN = (String) demoApiJSON.getData();
                     SPUtil.put(LoginActivity.this, App.ZW_TOKEN, App.ZCZW_TOKEN);
                     //获取用户信息
@@ -391,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     break;
                 case 444:
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500:
                     WinToast.toast(getApplicationContext(), demoApiJSON.getMsg());
@@ -410,7 +410,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             switch (demoApiJSON.getStatus()) {
                 case 200://登录成功
                     //登录后zw_token 保存为常量
-                    WinToast.toast(getApplicationContext(), "正在登陆");
+                    WinToast.toast(getApplicationContext(), "正在登录");
                     App.ZCZW_TOKEN = (String) demoApiJSON.getData();
                     SPUtil.put(LoginActivity.this, App.ZW_TOKEN, App.ZCZW_TOKEN);
                     //获取用户信息
@@ -570,7 +570,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     break;
                 case 444:
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500:
                     WinToast.toast(getApplicationContext(), demoApiJSON.getMsg());
@@ -605,7 +605,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     WinToast.toast(getApplicationContext(), "客户端错误");
                     break;
                 case 444://登陆过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500://服务器错误
                     WinToast.toast(getApplicationContext(), "服务器错误");

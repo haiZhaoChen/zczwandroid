@@ -82,7 +82,7 @@ public class GroupMemberActivity extends AppCompatActivity implements AdapterVie
                     gridView.setAdapter(adapter);
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }
@@ -107,7 +107,7 @@ public class GroupMemberActivity extends AppCompatActivity implements AdapterVie
                     gridView.setAdapter(adapter);
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }

@@ -138,7 +138,7 @@ public class ChangeActivity extends AppCompatActivity implements View.OnClickLis
                     if (mDialog != null) {
                         mDialog.dismiss();
                     }
-                    WinToast.toast(getApplicationContext(),"登陆过期");
+                    WinToast.toast(getApplicationContext(),"登录过期");
                     startActivity(new Intent(ChangeActivity.this,LoginActivity.class));
                     break;
                 case 500://服务器错误

@@ -159,7 +159,7 @@ public class SendGroupMesActivity extends AppCompatActivity {
                     }
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }

@@ -202,7 +202,7 @@ public class GroupDetailActivity extends AppCompatActivity implements CompoundBu
                     num.setText("全部群成员（"+groupMemberList.size()+"）");
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }
@@ -258,7 +258,7 @@ public class GroupDetailActivity extends AppCompatActivity implements CompoundBu
                     num.setText("全部群成员（"+groupMemberList.size()+"）");
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
             }
         }

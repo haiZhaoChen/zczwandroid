@@ -486,7 +486,7 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
                 case 444://登录过期
                     userIds= "";
                     rangeStr = "";
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500://服务器错误
                     userIds= "";
@@ -522,7 +522,7 @@ public class CommentsActivity extends AppCompatActivity implements View.OnClickL
                     mDialog.dismiss();
                     break;
                 case 444://登录过期
-                    WinToast.toast(getApplicationContext(), "登陆过期");
+                    WinToast.toast(getApplicationContext(), "登录过期");
                     break;
                 case 500://服务器错误
                     break;
