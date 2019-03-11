@@ -31,16 +31,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.bigdata.zczw.R;
-import org.bigdata.zczw.video.OrientationDetector;
-//import com.aliyun.apsaravideo.recorder.view.AliyunSVideoGlSurfaceView;
 import com.aliyun.common.global.Version;
 import com.aliyun.common.utils.CommonUtil;
 import com.aliyun.recorder.AliyunRecorderCreator;
 import com.aliyun.recorder.supply.AliyunIClipManager;
 import com.aliyun.recorder.supply.AliyunIRecorder;
 import com.aliyun.recorder.supply.RecordCallback;
-import org.bigdata.zczw.video.RecordTimelineView;
 import com.aliyun.svideo.sdk.external.struct.common.AliyunVideoParam;
 import com.aliyun.svideo.sdk.external.struct.common.VideoDisplayMode;
 import com.aliyun.svideo.sdk.external.struct.common.VideoQuality;
@@ -54,9 +50,13 @@ import com.aliyun.svideo.sdk.external.struct.snap.AliyunSnapVideoParam;
 import com.qu.preview.callback.OnFrameCallBack;
 import com.qu.preview.callback.OnTextureIdCallBack;
 
+import org.bigdata.zczw.R;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.List;
+
+//import com.aliyun.apsaravideo.recorder.view.AliyunSVideoGlSurfaceView;
 
 /**
  * 视频拍摄界面
@@ -367,6 +367,7 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
 //        mGalleryBtn.setOnClickListener(this);
         scaleGestureDetector = new ScaleGestureDetector(this, this);
         gestureDetector = new GestureDetector(this, this);
+
     }
 
     /**

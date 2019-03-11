@@ -174,10 +174,8 @@
         <activity
             android:name=".activity.CommentsActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".video.AliyunVideoRecorder"
-            android:screenOrientation="portrait" />
-
+        <activity android:name=".video.AliyunVideoRecorder"
+            android:screenOrientation="portrait"/>
 
 
         <receiver
