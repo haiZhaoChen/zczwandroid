@@ -50,6 +50,10 @@ public class ParseXmlService {
                 else if (("url".equals(childElement.getNodeName()))) {
                     hashMap.put("url", childElement.getFirstChild().getNodeValue());
                 }
+                //是否强制更新
+                else if (("forcedType".equals(childElement.getNodeName()))) {
+                    hashMap.put("forcedType", childElement.getFirstChild().getNodeValue());
+                }
             }
         }
         return hashMap;
