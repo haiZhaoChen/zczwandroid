@@ -83,9 +83,6 @@ public class App extends MultiDexApplication {
         JPushInterface.init(this);
         QupaiHttpFinal.getInstance().initOkHttpFinal();
 
-        System.loadLibrary("QuCore-ThirdParty");
-        System.loadLibrary("QuCore");
-
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(getApplicationContext(), "wx40ff322a1e3a5848",true);
 
         // 将该app注册到微信
