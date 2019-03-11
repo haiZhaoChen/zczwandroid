@@ -887,7 +887,7 @@ public class AddMessageActivity extends AppCompatActivity
                 //intent.setType(“audio/*”); //选择音频
                 //intent.setType(“video/*”); //选择视频 （mp4 3gp 是android支持的视频格式）
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("application/msword");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+                intent.setType("application/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intent,107);
 

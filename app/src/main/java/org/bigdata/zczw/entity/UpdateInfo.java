@@ -7,7 +7,20 @@ public class UpdateInfo {
 	private String name;
 	private String url;
 	private String versionName;
-	
+	private String forcedType;
+
+	public String getName() {
+		return name;
+	}
+
+	public String getForcedType() {
+		return forcedType;
+	}
+
+	public void setForcedType(String forcedType) {
+		this.forcedType = forcedType;
+	}
+
 	public UpdateInfo() {
 	}
 
