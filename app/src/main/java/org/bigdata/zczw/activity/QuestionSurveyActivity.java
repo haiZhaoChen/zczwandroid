@@ -1,5 +1,7 @@
 package org.bigdata.zczw.activity;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -45,7 +47,7 @@ public class QuestionSurveyActivity extends AppCompatActivity {
         settings.setBuiltInZoomControls(true);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-
+        settings.setLoadsImagesAutomatically(true);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         // 设置WebView的一些缩放功能点
         webView.setHorizontalScrollBarEnabled(false);

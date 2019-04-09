@@ -190,8 +190,6 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
         //获取当前状态
         ServerUtils.getIntegralStatus(statusCallBack);
 
-        //获取本年度，公共分
-        ServerUtils.getScoreList(rankType+"" , type+"",rankId, listCallBack);
 
 
     }
@@ -217,6 +215,23 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
 
                 int typeSize=3;
                 showType = statusModel.getUserType();
+
+                if (showType != 4){
+                    //获取本年度，公共分
+                    type = 0;
+                    ServerUtils.getScoreList(rankType+"" , type+"",rankId, listCallBack);
+                }else {
+                    //获取本年度，公共分
+                    type = 5;
+                    ServerUtils.getScoreList(rankType+"" , type+"",rankId, listCallBack);
+                    String[] nameTime = {"","近30天","年度"};
+                    String[] nametype = {"公共","养护","收费","机电","信调","机关科室","处属单位"};
+                    String name = nametype[type]+nameTime[rankType]+"排名";
+                    homeText.setText(name);
+
+
+                }
+
                 switch (showType){
                     case 1:
                         //普通员工
@@ -258,8 +273,8 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
                         //处级领导
                         typeSize = 7;
                         typeNameList.add("公共");
-                        typeNameList.add("收费");
                         typeNameList.add("养护");
+                        typeNameList.add("收费");
                         typeNameList.add("机电");
                         typeNameList.add("信调");
                         typeNameList.add("机关科室");
@@ -331,6 +346,15 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
             case R.id.score_info:
                 Intent intent = new Intent(IntegralActivity.this,IntegralScoreActivity.class);
                 intent.putExtra("integralModel",integralListModel);
+                int typeId = 1;
+                if (type == 0){
+                    typeId = 1;
+                }else if(type > 0 && type <5){
+                    typeId = 2;
+                }else if(type > 5){
+                    typeId = 3;
+                }
+                intent.putExtra("type",typeId);
                 startActivity(intent);
                 break;
             case R.id.integral_back_home:

@@ -35,6 +35,7 @@ public class IntegralScoreActivity extends AppCompatActivity implements PullToRe
 
     public static int TYPE = 1;
     private String messageidbefore;
+    private String type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,8 +72,10 @@ public class IntegralScoreActivity extends AppCompatActivity implements PullToRe
     private void initData(){
         //请求数据
         integralModel = (IntegralListModel)getIntent().getSerializableExtra("integralModel");
+        type = (int)getIntent().getIntExtra("type",1) +"";
 
-        ServerUtils.getIntegralInfo("",true,infoCallBack);
+
+        ServerUtils.getIntegralInfo("",true,type,infoCallBack);
 
 
     }
@@ -171,9 +174,9 @@ public class IntegralScoreActivity extends AppCompatActivity implements PullToRe
 
             if (dataList.size()>0){
                 IntegralInfoModel model = dataList.get(0);
-                ServerUtils.getIntegralInfo(model.getId()+"",true,messageRefresh);
+                ServerUtils.getIntegralInfo(model.getId()+"",true,type,messageRefresh);
             }else {
-                ServerUtils.getIntegralInfo("",true,messageRefresh);
+                ServerUtils.getIntegralInfo("",true,type,messageRefresh);
             }
 
         }
@@ -193,7 +196,7 @@ public class IntegralScoreActivity extends AppCompatActivity implements PullToRe
                 TYPE = 1;
 
                 messageidbefore = lastMessageId;
-                ServerUtils.getIntegralInfo(messageidbefore,false,messageRefresh);
+                ServerUtils.getIntegralInfo(messageidbefore,false,type,messageRefresh);
             } else {
                 listView.onRefreshComplete();
             }

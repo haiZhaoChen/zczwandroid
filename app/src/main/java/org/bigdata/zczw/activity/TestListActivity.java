@@ -21,6 +21,7 @@ import org.bigdata.zczw.utils.AppManager;
 import org.bigdata.zczw.utils.JsonUtils;
 import org.bigdata.zczw.utils.ServerUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 /*
 * 试卷列表
@@ -55,7 +56,14 @@ public class TestListActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(TestListActivity.this,QuestionSurveyActivity.class);
-        intent.putExtra("url",testList.get(position).getUrl());
+//        intent.putExtra("url",testList.get(position).getUrl());
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add("https://view.inews.qq.com/a/20190317A0EG1000?tbkt=F&uid=&refer=wx_hot");
+        urls.add("https://new.qq.com/omn/20190325/20190325A00P30.html");
+        urls.add("https://view.inews.qq.com/a/HEC2019032400387102?uid=&shareto=wx");
+        urls.add("http://view.inews.qq.com/a/HEC2019032400387102?uid=&shareto=wx");
+        urls.add("https://view.inews.qq.com/a/HEC2019032400387102");
+        intent.putExtra("url",urls.get(position));
         startActivity(intent);
     }
 

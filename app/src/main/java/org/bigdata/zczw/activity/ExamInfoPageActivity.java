@@ -29,6 +29,7 @@ import org.bigdata.zczw.utils.ServerUtils;
 import org.bigdata.zczw.utils.Utils;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -443,19 +444,37 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    private boolean eques(ArrayList<Integer> a,ArrayList<Integer> b){
+
+        if (a == null||a.size()==0 || b == null || b.size()==0){
+            return false;
+        }
+
+        if (a.size() != b.size()){
+            return false;
+        }
+
+        for (Integer i : a){
+            if (!b.contains(i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     //判断是否答对了题
     private void equalsAnswers(){
-
-
-//        examAnswerNum.setText("");
 
         ArrayList<Integer> a = new ArrayList<>();
         for (String s:answers){
             a.add(Integer.valueOf(s).intValue());
         }
 
-        boolean isEqual = Arrays.equals(a.toArray(),ques.getRightAnswers().toArray());
+
+
+        boolean isEqual = eques(a,ques.getRightAnswers());
 
         resultABCList.add(a);
 
@@ -554,6 +573,8 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
 
         }
     };
+    //计算实际的题目数据
+
 
     private RequestCallBack<String> callback = new RequestCallBack<String>() {
         @Override

@@ -77,7 +77,7 @@ public class MsgTimeTypeActivity extends AppCompatActivity implements View.OnCli
         userList = new ArrayList<>();
         timeList = new ArrayList<>();
         Long oneDay = 24*3600*1000L;
-        timeList.add(oneDay);
+//        timeList.add(oneDay);
         timeList.add(oneDay*7);
         timeList.add(oneDay*30);
         timeList.add(oneDay*90);

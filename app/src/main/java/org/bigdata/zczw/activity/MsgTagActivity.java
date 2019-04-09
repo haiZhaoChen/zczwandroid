@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MsgTagActivity extends AppCompatActivity implements View.OnClickLis
     private LayoutInflater mInflater;
     private ArrayList<MsgTag> arrayList;
     private String topic;
+    private boolean isMoreTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,27 +125,61 @@ public class MsgTagActivity extends AppCompatActivity implements View.OnClickLis
                     mVals[i] = arrayList.get(i).getName();
                 }
 
+                tagFlowLayout.setMaxSelectCount(3);
                 tagFlowLayout.setAdapter(new TagAdapter<String>(mVals) {
 
                     @Override
                     public View getView(FlowLayout flowLayout, int i, String s) {
                         TextView tv = (TextView) mInflater.inflate(R.layout.search_tag_text, tagFlowLayout, false);
+                        tv.setId(i);
                         tv.setText(s);
                         return tv;
                     }
 
+
                     @Override
                     public void onSelected(int position, View view) {
+
                         view.setBackground(getResources().getDrawable(R.drawable.frame_radius_yellow));
                         ((TextView)view).setTextColor(Color.parseColor("#e6731c"));
                         super.onSelected(position, view);
+
+                        Set<Integer> set = tagFlowLayout.getSelectedList();
+                        if (set != null && set.size() >=2){
+                            isMoreTags = true;
+                            for (int i=0;i<arrayList.size();i++){
+                                TextView tv = (TextView)tagFlowLayout.findViewById(i);
+                                if (!set.contains(i)&& view != tv){
+                                    tv.setEnabled(false);
+                                    tv.setTextColor(Color.parseColor("#bbbbbb"));
+                                }
+                            }
+                        }
                     }
+
+
 
                     @Override
                     public void unSelected(int position, View view) {
                         view.setBackground(getResources().getDrawable(R.drawable.frame_radius_gray0));
                         ((TextView)view).setTextColor(Color.parseColor("#1e1e1e"));
                         super.unSelected(position, view);
+                        Set<Integer> set = tagFlowLayout.getSelectedList();
+                        if (set != null && set.size() <=3){
+                            if (isMoreTags){
+                                isMoreTags = false;
+                                for (int i=0;i<arrayList.size();i++){
+                                    TextView tv = (TextView)tagFlowLayout.findViewById(i);
+                                    if (!set.contains(i)){
+                                            tv.setEnabled(true);
+                                            tv.setTextColor(Color.parseColor("#1e1e1e"));
+                                    }
+                                }
+                            }
+
+                        }
+
+
                     }
                 });
 

@@ -1020,6 +1020,7 @@ public class AddMessageActivity extends AppCompatActivity
             if (increaseType != null){
                 postFormBuilder.addParams("increaseType",increaseType);
             }
+
             if (type.equals("0")) {
                 postFormBuilder.addParams("userIds","");
             }else {

@@ -53,7 +53,6 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_list);
-
         //设置属性
         getSupportActionBar().setTitle("考试列表");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
