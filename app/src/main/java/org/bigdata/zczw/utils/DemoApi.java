@@ -10,7 +10,8 @@ public class DemoApi {
 
 //    public static String HOST = "http://zczw.ewonline.org:8093/";
 
-    public static String HOST = "http://192.168.1.99:9033/";
+//    public static String HOST = "http://192.168.1.90:8888/";
+    public static String HOST = "http://110.249.218.84:8888/";
 
     public static String IMAGE = "http://zczwstorage.ewonline.org:8094/images/";
 
@@ -121,6 +122,7 @@ public class DemoApi {
     public static  String EXAM_INFO = "/examPaper/joinExam";//考试详情
     public static  String EXAM_COMPOSE = "/examPaper/answer";//提交答案
     public static  String EXAM_TONGJI = "/examPaper/joinPracticeExam";//参加测试
+    public static  String EXAM_HISTORY = "/examPaper/history";//考试历史记录
 
     public static  String INTEGRAL_STATUS = "/integral/currentStatus";//用户状态
     public static  String INTEGRAL_LIST = "/integral/getPastTimeCountRank";//积分排名

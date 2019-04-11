@@ -33,6 +33,8 @@ import org.bigdata.zczw.App;
 import org.bigdata.zczw.R;
 import org.bigdata.zczw.activity.AddPaiActivity;
 import org.bigdata.zczw.adapter.PaiAdapter;
+import org.bigdata.zczw.entity.AttendStatus;
+import org.bigdata.zczw.entity.CheckStatus;
 import org.bigdata.zczw.entity.DemoApiJSON;
 import org.bigdata.zczw.entity.Pai;
 import org.bigdata.zczw.entity.PaiData;
@@ -107,6 +109,7 @@ public class PaiFragment extends Fragment implements View.OnClickListener , Pull
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         initData();
+
     }
 
     private void initData() {
@@ -124,7 +127,35 @@ public class PaiFragment extends Fragment implements View.OnClickListener , Pull
         addPai.setOnClickListener(this);
 
         ServerUtils.getPaiList("" , "true" , timeType ,category , tag , paiCallBack);
+        //请求数据拦截发布随手拍
+        ServerUtils.checkStatus(needCallBack);
     }
+
+    private RequestCallBack<String> needCallBack = new RequestCallBack<String>() {
+
+        @Override
+        public void onSuccess(ResponseInfo<String> responseInfo) {
+            String json = responseInfo.result;
+            CheckStatus bean = JsonUtils.jsonToPojo(json,CheckStatus.class);
+            if (bean != null && bean.getStatus() == 200) {
+                AttendStatus status = bean.getData();
+
+                if (status.isUnitAccount()){
+                    addPai.setVisibility(View.GONE);
+
+
+                }else {
+                    addPai.setVisibility(View.VISIBLE);
+
+                }
+            }
+
+        }
+
+        @Override
+        public void onFailure(HttpException e, String s) {
+        }
+    };
 
     @Override
     public void onClick(View v) {

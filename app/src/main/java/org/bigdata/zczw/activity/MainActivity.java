@@ -372,9 +372,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             if(paiFragment!=null){
                 fragmentTransaction.hide(paiFragment);
             }
-//            if(myListFragment!=null){
-//                fragmentTransaction.hide(myListFragment);
-//            }
+
         }
     }
 

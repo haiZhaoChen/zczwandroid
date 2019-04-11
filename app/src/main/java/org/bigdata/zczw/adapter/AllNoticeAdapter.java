@@ -45,6 +45,11 @@ public class AllNoticeAdapter extends BaseAdapter {
     }
 
     @Override
+    public boolean isEnabled(int position) {
+        return super.isEnabled(position);
+    }
+
+    @Override
     public int getCount() {
         return arrayList.size();
     }

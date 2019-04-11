@@ -124,7 +124,6 @@ public class AddMessageActivity extends AppCompatActivity
     private String outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 //    private String inputPath;
     private String outVideoPath;
-
     public final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 //    private static String VIDEO_URL = "http://zczw.ewonline.org:8093/message/addvideo";

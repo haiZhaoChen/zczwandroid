@@ -36,6 +36,7 @@ import org.bigdata.zczw.activity.IntegralActivity;
 import org.bigdata.zczw.activity.MainActivity;
 import org.bigdata.zczw.activity.RegulationsActivity;
 import org.bigdata.zczw.activity.SetActivity;
+import org.bigdata.zczw.activity.TestListActivity;
 import org.bigdata.zczw.activity.UserInfoActivity;
 import org.bigdata.zczw.entity.AttendCount;
 import org.bigdata.zczw.entity.AttendCountBean;

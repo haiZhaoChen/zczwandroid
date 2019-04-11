@@ -1243,6 +1243,19 @@ public class ServerUtils {
         params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
         httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
     }
+    /**
+     * 考试历史
+     *
+     */
+    public static void getExamHistoryList(RequestCallBack<String> requestCallBack){
+
+        String url = DemoApi.HOST + DemoApi.EXAM_HISTORY;
+        HttpUtils httpUtils = new HttpUtils();
+        httpUtils.configCurrentHttpCacheExpiry(0); // 设置缓存0秒,0秒内直接返回上次成功请求的结果。
+        RequestParams params = new RequestParams();
+        params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
+        httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
+    }
 
     /**
      * 获取考试试题
@@ -1335,13 +1348,14 @@ public class ServerUtils {
      * @param returnNew
      * @param requestCallBack
      */
-    public static void getIntegralInfo(String integralId ,Boolean returnNew ,RequestCallBack<String> requestCallBack){
+    public static void getIntegralInfo(String integralId ,Boolean returnNew ,String type,RequestCallBack<String> requestCallBack){
         String url = DemoApi.HOST + DemoApi.INTEGRAL_INFO ;
         HttpUtils httpUtils = new HttpUtils();
         httpUtils.configCurrentHttpCacheExpiry(0);
         RequestParams params = new RequestParams();
         params.addQueryStringParameter("integralId", integralId);
         params.addQueryStringParameter("returnNew", returnNew.toString());
+        params.addQueryStringParameter("type",type);
         params.setHeader(new BasicHeader("Cookie", "zw_token=" + App.ZCZW_TOKEN));
         httpUtils.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.GET, url,params, requestCallBack);
     }

@@ -20,7 +20,7 @@ public class ExamAnswerParseAdapter extends BaseAdapter {
     private ArrayList<ExamQuesModel> dataList;
     private ArrayList<Boolean> resultList;
     private ArrayList<ArrayList<Integer>> resultABCList;
-    private String[] rightAnswers = new String[]{"A","B","C","D","E","F","G","X"};
+    private String[] rightAnswers = new String[]{"A","B","C","D","E","F","G","X","Z","未答"};
 
     public ExamAnswerParseAdapter(Context context, ArrayList<ExamQuesModel> dataList,ArrayList<Boolean> resultList,ArrayList<ArrayList<Integer>> resABC){
         this.context = context;
@@ -181,10 +181,10 @@ public class ExamAnswerParseAdapter extends BaseAdapter {
             StringBuffer an = new StringBuffer();
             Boolean isNoAnswer = false;
             for (Integer i:answers){
-                an.append(rightAnswers[i]);
                 if (i == 10){
                     isNoAnswer = true;
                 }else {
+                    an.append(rightAnswers[i]);
                     isNoAnswer = false;
                 }
             }

@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +31,7 @@ import org.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 
-public class ExamListPageActivity extends AppCompatActivity implements PullToRefreshBase.OnRefreshListener<ListView> {
+public class ExamListPageActivity extends AppCompatActivity implements PullToRefreshBase.OnRefreshListener<ListView>{
 
 
     private PullToRefreshListView listView;
@@ -66,6 +68,7 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
 
 
 
+
     private void initView() {
 
         listView = (PullToRefreshListView) findViewById(R.id.list_exam_act);
@@ -82,7 +85,6 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
                                                     Intent intent = new Intent(ExamListPageActivity.this,ExamAnswerParseActivity.class);
                                                     intent.putExtra("exam",exam);
                                                     startActivity(intent);
-
                                                 }else {
                                                     Intent intent = new Intent(ExamListPageActivity.this,ExamInfoPageActivity.class);
                                                     intent.putExtra("exam",exam);
@@ -94,6 +96,18 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
 
         );
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.de_exam_history, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+
 
 
     private void initData() {
@@ -162,8 +176,15 @@ public class ExamListPageActivity extends AppCompatActivity implements PullToRef
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+        if (item.getItemId() == R.id.action_yes_examhistory){
+            Intent intent = new Intent(ExamListPageActivity.this,ExamHistoryActivity.class);
+            startActivity(intent);
+        }else {
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
+
     }
 
 

@@ -61,6 +61,8 @@ public class Record implements Serializable{
     private List<MsgTag> tags;
     private List<FileBean> files;
 
+    //动态是什么类型的，0为公共动态，1:公共; 2:收费; 3:养护;4:机电;5:信调;
+    //read为是否已经阅读过此动态
     private Integer read;
     private Integer increaseType;
 

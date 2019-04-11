@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -297,6 +298,12 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
         builder.create().show();
     }
@@ -550,6 +557,26 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP){
+            if (answers.size()>0){
+
+                showReturnNoticeDialog();
+                return true;
+            }else {
+                setResult(10001);
+                return super.dispatchKeyEvent(event);
+            }
+
+
+
+        }else {
+            return super.dispatchKeyEvent(event);
+        }
+
+
+    }
 
     //测试请求返回
     private RequestCallBack<String> testCallback = new RequestCallBack<String>() {

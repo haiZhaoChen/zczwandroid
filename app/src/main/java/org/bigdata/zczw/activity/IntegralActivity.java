@@ -351,7 +351,7 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
                     typeId = 1;
                 }else if(type > 0 && type <5){
                     typeId = 2;
-                }else if(type > 5){
+                }else if(type >= 5){
                     typeId = 3;
                 }
                 intent.putExtra("type",typeId);

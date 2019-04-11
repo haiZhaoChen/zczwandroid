@@ -120,9 +120,7 @@ public class ExamAnswerParseActivity extends AppCompatActivity {
     //判断是否答对了题
     private void equalsAnswers(String answers,ArrayList<Integer> rightAnswer){
 
-
-
-
+        if (answers == null) answers = "10,";
         String[] answerArr = answers.split(",");
         ArrayList<Integer> a = new ArrayList<>();
         for (String s:answerArr){
