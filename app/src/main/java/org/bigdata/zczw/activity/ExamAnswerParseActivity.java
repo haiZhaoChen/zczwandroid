@@ -116,6 +116,24 @@ public class ExamAnswerParseActivity extends AppCompatActivity {
             WinToast.toast(ExamAnswerParseActivity.this, e.getMessage());
         }
     };
+    private boolean eques(ArrayList<Integer> a,ArrayList<Integer> b){
+
+        if (a == null||a.size()==0 || b == null || b.size()==0){
+            return false;
+        }
+
+        if (a.size() != b.size()){
+            return false;
+        }
+
+        for (Integer i : a){
+            if (!b.contains(i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     //判断是否答对了题
     private void equalsAnswers(String answers,ArrayList<Integer> rightAnswer){
@@ -127,8 +145,7 @@ public class ExamAnswerParseActivity extends AppCompatActivity {
             if (s.length()>0) a.add(Integer.valueOf(s).intValue());
         }
 
-        boolean isEqual = Arrays.equals(a.toArray(),rightAnswer.toArray());
-
+        boolean isEqual = eques(a,rightAnswer);
         resultABCList.add(a);
 
         //是否是正确答案

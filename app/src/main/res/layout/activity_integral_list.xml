@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/white">
 
         <View
@@ -98,9 +98,9 @@
 
             <TextView
                 android:id="@+id/integral_me_rank_num"
-                android:layout_width="30dp"
+                android:layout_width="36dp"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:text="522"
                 android:textColor="@color/gray"
                 android:textSize="17sp"
                 android:textAlignment="center"

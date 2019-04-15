@@ -459,7 +459,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 ArrayList<String> tempArr = new ArrayList<>();
                 for (int i = 0; i < arrayList.size(); i++) {
                     MsgTag msgTag = arrayList.get(i);
-                    if (msgTag.getId() == 100002){
+                    if (msgTag.getId() > 100001){
                         continue;
                     }
                     tempArr.add(arrayList.get(i).getName());
@@ -479,11 +479,13 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                     public View getView(FlowLayout flowLayout, int i, String s) {
                         TextView tv = (TextView) mInflater.inflate(R.layout.pop_tag_text, tagFlowLayout, false);
                         tv.setText(s);
+                        tv.setId(i);
                         return tv;
                     }
 
                     @Override
                     public void onSelected(int position, View view) {
+                        if (isDiscuss) return;
                         view.setBackground(getResources().getDrawable(R.drawable.frame_radius_yellow));
                         ((TextView)view).setTextColor(Color.parseColor("#e6731c"));
                         super.onSelected(position, view);
@@ -491,6 +493,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                     @Override
                     public void unSelected(int position, View view) {
+                        if (isDiscuss) return;
                         view.setBackground(getResources().getDrawable(R.drawable.frame_radius_gray0));
                         ((TextView)view).setTextColor(Color.parseColor("#1e1e1e"));
                         super.unSelected(position, view);
@@ -525,6 +528,8 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 ServerUtils.mGetMessageHotList("", "20", "1" , sameUnit,"",message);
             }else if (sameUnit.equals("2")) {
                 ServerUtils.getMessageListFirst(tagId,sameUnit,"1",message);
+            }else if(sameUnit.equals("4")) {
+                ServerUtils.getMessageListFirst("100002",sameUnit,"",message);
             }else {
                 ServerUtils.getMessageListFirst(tagId,sameUnit,"",message);
             }
@@ -549,7 +554,9 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                     ServerUtils.mGetMessageHotList(lastMessageId, "20", "1" , sameUnit,"",messageRefresh);
                 }else if (sameUnit.equals("2")) {
                     ServerUtils.mGetMessageList(tagId,lastMessageId, "20", "1",sameUnit,"1", messageRefresh);
-                }else {
+                }else if(sameUnit.equals("4")){
+                    ServerUtils.mGetMessageList("100002",lastMessageId, "20", 1 + "",sameUnit,"", messageRefresh);
+                } else {
                     ServerUtils.mGetMessageList(tagId,lastMessageId, "20", 1 + "",sameUnit,"", messageRefresh);
                 }
             } else {
@@ -804,29 +811,42 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
         rgfeed.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (isDiscuss){
+                    isDiscuss = false;
+                    mAdapter.setSelectedList(0);
+                    tagFlowLayout.setAdapter(mAdapter);
+                    setTag = 0;
+                    tagId="";
+
+                }
                 switch (checkedId){
                     case R.id.rb_feed_all:
                         sameUnit = "";
-                        isDiscuss = false;
+
                         break;
                     case R.id.rb_feed_bm:
                         sameUnit = "1";
-                        isDiscuss = false;
+
                         break;
                     case R.id.rb_feed_dx:
                         sameUnit = "2";
-                        isDiscuss = false;
+
                         break;
                     case R.id.rb_feed_hot:
                         sameUnit = "3";
-                        isDiscuss = false;
+
                         break;
 
                     case R.id.rb_feed_discusion:
                         sameUnit = "";
                         isDiscuss = true;
-                        //标签选择为全部
+                        //标签选择为全部,其他标签不可选择
                         mAdapter.setSelectedList(0);
+//                        for (int i=1;i<arrayList.size();i++){
+//                            TextView tv = (TextView)tagFlowLayout.findViewById(i);
+//                            tv.setEnabled(false);
+//                            tv.setTextColor(Color.parseColor("#bbbbbb"));
+//                        }
                         tagFlowLayout.setAdapter(mAdapter);
                         setTag = 0;
                         tagId="";
@@ -838,6 +858,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isDiscuss = false;
                 mAdapter.setSelectedList(0);
                 tagFlowLayout.setAdapter(mAdapter);
 
@@ -845,7 +866,7 @@ public class HomeFragment extends Fragment implements PullToRefreshBase.OnRefres
                 sameUnit = "";
                 setTag = 0;
                 tagId="";
-                isDiscuss = false;
+
             }
         });
 

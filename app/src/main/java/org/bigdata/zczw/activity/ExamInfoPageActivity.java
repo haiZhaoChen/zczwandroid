@@ -543,7 +543,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
         switch (item.getItemId()) {
             //在这里判断如果已经答题了，返回的时候有弹窗
             case android.R.id.home:
-                if (answers.size()>0){
+                if (resultABCList.size()>0){
 
                     showReturnNoticeDialog();
 
@@ -560,7 +560,7 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP){
-            if (answers.size()>0){
+            if (resultABCList.size()>0){
 
                 showReturnNoticeDialog();
                 return true;
@@ -568,9 +568,6 @@ public class ExamInfoPageActivity extends AppCompatActivity implements View.OnCl
                 setResult(10001);
                 return super.dispatchKeyEvent(event);
             }
-
-
-
         }else {
             return super.dispatchKeyEvent(event);
         }
